@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -32,6 +33,9 @@ public abstract class LevelParent extends Observable {
 	
 	private int currentNumberOfEnemies;
 	private LevelView levelView;
+	private boolean isSPaceEnabled= true;
+	private boolean isPause = false;
+	private boolean isESCEnabled= true;
 
 	public LevelParent(String backgroundImageName, double screenHeight, double screenWidth, int playerInitialHealth) {
 		this.root = new Group();
@@ -74,6 +78,7 @@ public abstract class LevelParent extends Observable {
 	}
 
 	public void goToNextLevel(String levelName) {
+		user.destroy();//added to prevent memory leak
 		setChanged();
 		notifyObservers(levelName);
 	}
@@ -108,7 +113,9 @@ public abstract class LevelParent extends Observable {
 				KeyCode kc = e.getCode();
 				if (kc == KeyCode.UP) user.moveUp();
 				if (kc == KeyCode.DOWN) user.moveDown();
-				if (kc == KeyCode.SPACE) fireProjectile();
+				if (kc == KeyCode.SPACE && isSPaceEnabled) fireProjectile();
+				if (kc == KeyCode.ESCAPE && isESCEnabled) pauseLevel();
+				if (kc == KeyCode.R) resetLevel();
 			}
 		});
 		background.setOnKeyReleased(new EventHandler<KeyEvent>() {
@@ -187,6 +194,7 @@ public abstract class LevelParent extends Observable {
 			if (enemyHasPenetratedDefenses(enemy)) {
 				user.takeDamage();
 				enemy.destroy();
+				user.decrementKillcount();
 			}
 		}
 	}
@@ -195,7 +203,7 @@ public abstract class LevelParent extends Observable {
 		levelView.removeHearts(user.getHealth());
 	}
 
-	private void updateKillCount() {
+		private void updateKillCount() {
 		for (int i = 0; i < currentNumberOfEnemies - enemyUnits.size(); i++) {
 			user.incrementKillCount();
 		}
@@ -206,11 +214,15 @@ public abstract class LevelParent extends Observable {
 	}
 
 	protected void winGame() {
+		isESCEnabled= false;
+		isSPaceEnabled = false;
 		timeline.stop();
 		levelView.showWinImage();
 	}
 
 	protected void loseGame() {
+		isESCEnabled= false;
+		isSPaceEnabled=false;
 		timeline.stop();
 		levelView.showGameOverImage();
 	}
@@ -246,6 +258,26 @@ public abstract class LevelParent extends Observable {
 
 	private void updateNumberOfEnemies() {
 		currentNumberOfEnemies = enemyUnits.size();
+	}
+
+	/*new function*/
+	//pause function
+	private void pauseLevel (){
+		if (!isPause){
+		isPause = true;
+		isSPaceEnabled=false;
+		timeline.pause();
+		levelView.showPauseMenuImage();}
+		else {
+			isPause = false;
+			isSPaceEnabled=true;
+			timeline.play();
+		levelView.hidePauseMenuImage();}
+	}
+
+	//reset function
+	private  void resetLevel(){
+		goToNextLevel("com.example.demo.LevelOne");
 	}
 
 }
