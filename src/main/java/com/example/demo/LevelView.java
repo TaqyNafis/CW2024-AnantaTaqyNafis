@@ -26,7 +26,6 @@ public class LevelView {
 		this.winImage = new WinImage(IMAGE_X_POSITION, IMAGE_Y_POSITION+35);
 		this.gameOverImage = new GameOverImage(IMAGE_X_POSITION, IMAGE_Y_POSITION);
 		this.pauseMenuImage = new PauseMenuImage(IMAGE_X_POSITION, IMAGE_Y_POSITION);
-
 		this.darkOverlay = new Rectangle(SCREEN_WIDTH, SCREEN_HEIGHT, Color.rgb(0, 0, 0, 0.6));
 		darkOverlay.setVisible(false);
 	}
@@ -37,7 +36,6 @@ public class LevelView {
 
 	public void showWinImage() {
 		root.getChildren().add(winImage);
-		winImage.showWinImage();
 	}
 	
 	public void showGameOverImage() {

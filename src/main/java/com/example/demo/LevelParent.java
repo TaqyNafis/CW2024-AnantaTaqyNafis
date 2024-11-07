@@ -1,6 +1,5 @@
 package com.example.demo;
 
-import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -78,7 +77,8 @@ public abstract class LevelParent extends Observable {
 	}
 
 	public void goToNextLevel(String levelName) {
-		user.destroy();//added to prevent memory leak
+		timeline.stop();
+		getRoot().getChildren().remove(user);
 		setChanged();
 		notifyObservers(levelName);
 	}

@@ -9,6 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+import javafx.stage.Screen;
+import javafx.application.Platform;
 import com.example.demo.LevelParent;
 
 public class Controller implements Observer {
@@ -18,6 +20,10 @@ public class Controller implements Observer {
 
 	public Controller(Stage stage) {
 		this.stage = stage;
+
+		// Add listeners to center the stage on resize
+		stage.widthProperty().addListener((obs, oldVal, newVal) -> centerWindow());
+		stage.heightProperty().addListener((obs, oldVal, newVal) -> centerWindow());
 	}
 
 	public void launchGame() throws ClassNotFoundException, NoSuchMethodException, SecurityException,
@@ -49,6 +55,23 @@ public class Controller implements Observer {
 			alert.setContentText(e.getClass().toString());
 			alert.show();
 		}
+	}
+
+	//function to centered window whenever screen change sized
+	private void centerWindow() {
+		Platform.runLater(() -> {
+			// Get the screen bounds
+			double screenWidth = Screen.getPrimary().getVisualBounds().getWidth();
+			double screenHeight = Screen.getPrimary().getVisualBounds().getHeight();
+
+			// Calculate the new position
+			double newX = (screenWidth - stage.getWidth()) / 2;
+			double newY = (screenHeight - stage.getHeight()) / 2;
+
+			// Set the new position of the stage
+			stage.setX(newX);
+			stage.setY(newY);
+		});
 	}
 
 }

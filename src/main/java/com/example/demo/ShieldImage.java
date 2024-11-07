@@ -22,6 +22,7 @@ public class ShieldImage extends ImageView {
 	}
 	
 	public void hideShield() {
+
 		this.setVisible(false);
 	}
 
