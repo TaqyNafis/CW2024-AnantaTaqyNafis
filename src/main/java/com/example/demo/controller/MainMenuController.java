@@ -45,6 +45,8 @@ public class MainMenuController {
 
             // Set the new scene to the stage
             Scene scene = new Scene(root);
+            stage.setWidth(520);
+            stage.setHeight(520);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {

@@ -26,6 +26,9 @@ classes for main menu control
 How to play controller class= 
 classes for how to play menu control
 
+MainMenu class=
+this is a class that is responsible to display main main menu of game
+
 
 
 MODIFIED FEATURE AND CHANGES=
@@ -76,11 +79,20 @@ Added SCREEN_WIDTH AND SCREEN_HEIGHT Variable it is used for the height and widt
 
 removed "winImage.showWinImage();" from showHeart Display since it has been removed from WinImage class
 
-Added ShowPauseMenuImage() Function.
+Added ShowPauseMenuImage() Functio:.
 it is a function when first called will add both darkOverlay effect and pause menu image to root nodes on first call and if not ensure that both will always be on top of other asset 
 
-Added hidePauseMenuImage() function.
+Added hidePauseMenuImage() function:
 It is a function that when called will set visibility of pause menu image and dark overlay to false
+
+Added removeAssetsFromScene() function:
+It is a function that when called will remove the chosen actor from current scene and clear the list of actor
+
+Added ClearAsset() function:
+this is function that will be responsible to cleaning up game asset and freeing resources when called
+
+Added goToMainMenu() function:
+this is a function keybinded to ENTER that when called will change the game scene from current level to Main Menu
 
 
 LevelViewLevelTwo class=
@@ -95,7 +107,6 @@ Boss Class=
 Change upper bound and lower boundd of boss plane
 change image_height of boss plane
 change activateShield() and deactivateShield() function where respectively called showShield() and hideShield() function to properly spawn and despawn shield from boss
-
 
 
 
@@ -119,7 +130,7 @@ Integrated the boss's shield image into the root node upon spawning in Level Two
 PROBLEM:
 when transitioning from level 1 to level 2 memory leak happen if transition of level happened because enemy plane is destroyed
 SOLUTION:
-properly clear userPlane when calling goToNextLevel function
+properly clear asset of level by creating clearAsset function when calling goToNextLevel function
 
 PROBLEM:
 On game over and win screen if space is pressed bullet will spawn 
@@ -137,7 +148,7 @@ SOLUTION:
 instead of removing image from root node and adding image to root node each time the pause menu  is called it instead only add image when first called and hide and show image when it is needed
 
 PROBLEM:
-when goin to level 2 it gave error of "class.java.lang.reflect.InvocationTargetException"
+when going to level 2 it gave error of "class.java.lang.reflect.InvocationTargetException"
 SOLUTION:
 change the shield pathing to its proper path and change "shield.jpg" to "shield.png"
 

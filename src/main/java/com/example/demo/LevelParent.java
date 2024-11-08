@@ -1,14 +1,20 @@
 package com.example.demo;
 
+import com.example.demo.MainMenu;
+
+import java.io.IOException;
+import java.security.Key;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import com.example.demo.controller.Controller;
 import javafx.animation.*;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.*;
 import javafx.scene.input.*;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public abstract class LevelParent extends Observable {
@@ -76,9 +82,35 @@ public abstract class LevelParent extends Observable {
 		timeline.play();
 	}
 
-	public void goToNextLevel(String levelName) {
+	public void clearAsset() {
 		timeline.stop();
-		getRoot().getChildren().remove(user);
+		timeline.getKeyFrames().clear();  // Clear any existing keyframes
+
+		removeAssetsFromScene(friendlyUnits);
+		removeAssetsFromScene(enemyUnits);
+		removeAssetsFromScene(userProjectiles);
+		removeAssetsFromScene(enemyProjectiles);
+
+		friendlyUnits.clear();
+		enemyUnits.clear();
+		userProjectiles.clear();
+		enemyProjectiles.clear();
+
+		System.gc();
+	}
+
+	private void removeAssetsFromScene(List<ActiveActorDestructible> actors) {
+		if (actors != null) {
+			// Remove actors from the scene root
+			root.getChildren().removeAll(actors);
+
+			// Clear the list of actors
+			actors.clear();
+		}
+	}
+
+	public void goToNextLevel(String levelName) {
+		clearAsset();
 		setChanged();
 		notifyObservers(levelName);
 	}
@@ -116,6 +148,9 @@ public abstract class LevelParent extends Observable {
 				if (kc == KeyCode.SPACE && isSPaceEnabled) fireProjectile();
 				if (kc == KeyCode.ESCAPE && isESCEnabled) pauseLevel();
 				if (kc == KeyCode.R) resetLevel();
+				if (kc == KeyCode.ENTER) {
+					goToMainMenu((Stage) scene.getWindow());
+				}
 			}
 		});
 		background.setOnKeyReleased(new EventHandler<KeyEvent>() {
@@ -276,8 +311,20 @@ public abstract class LevelParent extends Observable {
 	}
 
 	//reset function
-	private  void resetLevel(){
+	private void resetLevel(){
 		goToNextLevel("com.example.demo.LevelOne");
 	}
+
+	//go to main menu
+	private void goToMainMenu(Stage stage) {
+		try {
+			clearAsset();
+			Controller gameController = new Controller(stage);
+			MainMenu.showMainMenu(stage, gameController);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 
 }
