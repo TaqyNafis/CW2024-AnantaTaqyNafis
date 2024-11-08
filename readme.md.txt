@@ -1,167 +1,118 @@
-GITHUB REPOSITORY LINK:
+=======================================
+          GITHUB REPOSITORY LINK
+=======================================
 https://github.com/TaqyNafis/CW2024-AnantaTaqyNafis
+=======================================
 
-IMPLEMENTED FEATURE AND CHANGE=
-main menu
-how to play menu
-pause function and pause menu
-automatically centered window when screen size change
+IMPLEMENTED FEATURES AND CHANGES
+=======================================
+- Main Menu
+- How to Play Menu
+- Pause Functionality and Pause Menu
+- Auto-Centered Window When Screen Size Changes
+- Properly clean up assets when changing levels
 
+PLANNED FEATURES
+=======================================
+- Endless Mode
+- More enemy variety
 
+NEW JAVA CLASSES
+=======================================
+1. **PauseMenuImage Class**  
+   - Handles the display of the pause menu image during gameplay.
 
-planned feature=
-properly clean asset when changing level
-endless mode
-more enemy variety
+2. **MainMenuController Class**  
+   - Manages the control of the main menu.
 
+3. **HowToPlayController Class**  
+   - Manages the control of the "How to Play" menu.
 
+4. **MainMenu Class**  
+   - Responsible for displaying the main menu of the game.
 
-NEW JAVA CLASSES:
-PauseMenuImage class =
- classes to show pause menu image during game time
+MODIFIED FEATURES AND CHANGES
+=======================================
 
-MainMenucontroller class = 
-classes for main menu control
+1. **Main Class**  
+   - Changed to show the main menu first upon game launch instead of starting the level directly.  
+   - Set the starting screen width to 640x400.
 
-How to play controller class= 
-classes for how to play menu control
+2. **Controller Class**  
+   - Added `centerWindow()` function to center the game window when resized, with a listener for size changes.
 
-MainMenu class=
-this is a class that is responsible to display main main menu of game
+3. **ShieldImage Class**  
+   - Updated image path for the shield from "shield.jpg" to "shield.png" using `IMAGE_NAME` variable with the `getResource` method.
 
+4. **WinImage Class**  
+   - Removed the `showWinImage()` function, as the win image is now shown by default.
 
+5. **GameOverImage Class**  
+   - Set width and height of the image to 500x600.
 
-MODIFIED FEATURE AND CHANGES=
-Main class=
-change the main class so that when game is launched it showed main menu first instead of level
-change starting screen width of game into 640 x 400
+6. **LevelParent Class**  
+   - Added bottom, middle, and top layers to root nodes for better asset separation.  
+     - Bottom layer: Background image  
+     - Middle layer: Updatable actors (plane, projectiles)  
+     - Top layer: GUI elements (life counter, game over image, etc.)  
+   - Removed `showWinImage()` as it is shown by default.  
+   - Added boolean variables `isSpaceEnabled`, `isPause`, and `isEscEnabled`.  
+   - Updated `handleEnemyPenetration()` to decrease kill count when an enemy is destroyed.  
+   - Updated `winGame()` and `loseGame()` functions to disable ESC and Space keys on respective screens.  
+   - Added `pauseLevel()` function to pause gameplay and show the pause menu image.  
+   - Added `resetLevel()` function to reset the level to Level 1.  
+   - Modified projectile firing to check if Space key is enabled.
 
+7. **LevelView Class**  
+   - Replaced individual win/lose image position variables with standardized `IMAGE_X_POSITION` and `IMAGE_Y_POSITION`.  
+   - Added dark overlay background and pause menu to level view.  
+   - Added `SCREEN_WIDTH` and `SCREEN_HEIGHT` for dark overlay.  
+   - Removed `showWinImage()` from heart display.  
+   - Added `showPauseMenuImage()` function to show the pause menu and overlay on first call.  
+   - Added `hidePauseMenuImage()` function to hide pause menu and overlay.  
+   - Added `removeAssetsFromScene()` to remove selected actor from scene.  
+   - Added `clearAsset()` function to clean up assets and free resources.  
+   - Added `goToMainMenu()` function to transition from level to main menu.
 
-controller class=
-added function so that when game is resize it will center the game window to the center of window name centerWindow() and listener for window size change
+8. **LevelViewLevelTwo Class**  
+   - Removed `showShield()` and `hideShield()` functions, now handled in `ShieldImage` class.
 
-ShieldImage class=
-Update the ShieldImage class by setting the correct path for the shield image. Replace "shield.jpg" with "shield.png", and assign the image path using the IMAGE_NAME string variable via the getResource method."
+9. **UserPlane Class**  
+   - Updated upper and lower bounds for the user plane's position.  
+   - Adjusted image height.  
+   - Added `decrementKillCount()` function.
 
-WinImage class=
-Remove showWinImage() function since the win image will be shown by default
+10. **Boss Class**  
+    - Updated upper and lower bounds for boss plane's position.  
+    - Adjusted image height.  
+    - Modified `activateShield()` and `deactivateShield()` functions to properly manage shield.
 
-GameOverImage class=
+UNEXPECTED PROBLEMS AND SOLUTIONS
+=======================================
 
-added set width and height of 500 x 600 
+1. **Problem:** Collision hitboxes do not align with visual representations.  
+   **Solution:** Updated images and adjusted hitboxes to match actor visual boundaries.
 
+2. **Problem:** User plane and boss plane can move off-screen.  
+   **Solution:** Adjusted upper and lower bounds for Y-position.
 
-LevelParent class=
-Remove showWinImage() function since the win image will be shown by default
+3. **Problem:** Boss shield not displaying correctly.  
+   **Solution:** Integrated the boss's shield image into the root node. Updated `updateShield()` to show/remove the shield properly.
 
-Added Boolean variable of isSpaceEnabled, isPause and isEscEnabled
+4. **Problem:** Memory leak when transitioning from Level 1 to Level 2 if an enemy is destroyed.  
+   **Solution:** Properly clear assets using `clearAsset()` when calling `goToNextLevel()`.
 
-change handleEnemyPenetration() function to decrease kill amount whenever it destroy enemy
+5. **Problem:** Space bar spawns bullets on Game Over or Win screens.  
+   **Solution:** Added `isSpaceEnabled` flag and set to false during Game Over and Win screens.
 
-change winGame() function to disable ESC button and Space button whenever it is showing win screen
+6. **Problem:** Kill count increases when an enemy plane is destroyed off-screen.  
+   **Solution:** Decrease kill count when an enemy plane goes off-screen.
 
-change loseGame() function to disable ESC button and Space button whenever it is showing Game Over screen
+7. **Problem:** Pause menu image does not disappear when unpaused.  
+   **Solution:** Use `showPauseMenuImage()` only once and toggle visibility when needed.
 
-Added pauseLevel() function that is binded to Escape that whenever is called will disable Space button and change the isPause state to true, it will pause gameplay  and show the Pause menu image. and if it is called while game is paused it will allow use of space again, change isPause to falase and resume gameplay
+8. **Problem:** `java.lang.reflect.InvocationTargetException` error when transitioning to Level 2.  
+   **Solution:** Corrected shield image path and changed "shield.jpg" to "shield.png".
 
-Added reset level function that is binded to "R" and when called it will go back to level 1
-
-change the requirement to fire projectile instead of only pressing space it will also check 
-wether space is currently enabled or not
-
-LeveLView class=
-remove WIN_IMAGE_X_POSITION, WIN_IMAGE_Y_POSITION, LOSS_SCREEN_X_POSITION and  LOSS_SCREEN_Y_POSITION and replace them into IMAGE_X_POSITION and  IMAGE_Y_POSITION since there is no need to have different variable for each image better to just have 1 standarized 
-
-added dark overlay background and pause Menu to level view 
-
-Added SCREEN_WIDTH AND SCREEN_HEIGHT Variable it is used for the height and width of dark overlay
-
-
-removed "winImage.showWinImage();" from showHeart Display since it has been removed from WinImage class
-
-Added ShowPauseMenuImage() Functio:.
-it is a function when first called will add both darkOverlay effect and pause menu image to root nodes on first call and if not ensure that both will always be on top of other asset 
-
-Added hidePauseMenuImage() function:
-It is a function that when called will set visibility of pause menu image and dark overlay to false
-
-Added removeAssetsFromScene() function:
-It is a function that when called will remove the chosen actor from current scene and clear the list of actor
-
-Added ClearAsset() function:
-this is function that will be responsible to cleaning up game asset and freeing resources when called
-
-Added goToMainMenu() function:
-this is a function keybinded to ENTER that when called will change the game scene from current level to Main Menu
-
-
-LevelViewLevelTwo class=
-remove showShield() and hideShield() function since function is already made in ShieldImage class
-
-UserPlane class=
-change upper bound and lower bound of user plane
-change image_height of user plane
-add decrementKillCount() function
-
-Boss Class=
-Change upper bound and lower boundd of boss plane
-change image_height of boss plane
-change activateShield() and deactivateShield() function where respectively called showShield() and hideShield() function to properly spawn and despawn shield from boss
-
-
-
-
-UNEXPECTED PROBLEM=
-PROBLEM:
-The collision hitboxes for each asset do not align with their visual representations.
-SOLUTION:
-Update the image for each asset and adjust the hitbox to match the actor's visual boundaries more accurately.
-
-PROBLEM:
-User Plane and boss plane can go out of screen
-solution:
-change y position upper bound and lower bound for userPlane and Boss class
-
-PROBLEM:
-boss not showing shield properly
-SOLUTION:
-Integrated the boss's shield image into the root node upon spawning in Level Two.  Updated the updateShield() function to accurately display the shield when the boss is shielded and to remove it when the boss is no longer shielded.
-
-PROBLEM:
-when transitioning from level 1 to level 2 memory leak happen if transition of level happened because enemy plane is destroyed
-SOLUTION:
-properly clear asset of level by creating clearAsset function when calling goToNextLevel function
-
-PROBLEM:
-On game over and win screen if space is pressed bullet will spawn 
-SOLUTION:
-Added isSpaceEnabled flag and is turn to false when game over screen and win game screen is called
-
-PROBLEM: 
-when enemy is destroyed after moving out of screen it increase kill count
-SOLUTION:
-whenever is plane is destroyed because of going out of screen it  decrease kill count.
-
-PROBLEM:
-when game is being unpause the pause menu image didn't disappear
-SOLUTION:
-instead of removing image from root node and adding image to root node each time the pause menu  is called it instead only add image when first called and hide and show image when it is needed
-
-PROBLEM:
-when going to level 2 it gave error of "class.java.lang.reflect.InvocationTargetException"
-SOLUTION:
-change the shield pathing to its proper path and change "shield.jpg" to "shield.png"
-
-PROBLEM:
-Game Over image doesn't fit the screen properly
-SOLUTION:
-changes the GameOverImage.class to be more similar to WinImage class where it have set width and height to be 500 x 600
-
-
-
-
-
-
-
-
-
+9. **Problem:** Game Over image does not fit the screen.  
+   **Solution:** Set Game Over image size to 500x600 for proper fitting.

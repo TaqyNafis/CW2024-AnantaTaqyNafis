@@ -15,7 +15,7 @@ public class LevelTwo extends LevelParent {
 
 	@Override
 	protected void initializeFriendlyUnits() {
-		getRoot().getChildren().add(getUser());
+		getMidLayer().getChildren().add(getUser());
 	}
 
 	@Override
@@ -32,13 +32,13 @@ public class LevelTwo extends LevelParent {
 	protected void spawnEnemyUnits() {
 		if (getCurrentNumberOfEnemies() == 0) {
 			addEnemyUnit(boss);
-			getRoot().getChildren().add(boss.getShieldImage());
+			getMidLayer().getChildren().add(boss.getShieldImage());
 		}
 	}
 
 	@Override
 	protected LevelView instantiateLevelView() {
-		levelView = new LevelViewLevelTwo(getRoot(), PLAYER_INITIAL_HEALTH);
+		levelView = new LevelViewLevelTwo(getTopLayer(), PLAYER_INITIAL_HEALTH);
 		return levelView;
 	}
 

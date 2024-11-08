@@ -13,7 +13,10 @@ public class LevelView {
 	private static final int SCREEN_WIDTH = 1300;
 	private static final int SCREEN_HEIGHT = 750;
 
-	private final Group root;
+	private final Group topLayer;
+	private final Group midLayer;
+	private final Group bottomLayer;
+
 	private final WinImage winImage;
 	private final GameOverImage gameOverImage;
 	private final HeartDisplay heartDisplay;
@@ -21,7 +24,12 @@ public class LevelView {
 	private final Rectangle darkOverlay;
 	
 	public LevelView(Group root, int heartsToDisplay) {
-		this.root = root;
+		this.topLayer = new Group();
+		this.midLayer = new Group();
+		this.bottomLayer = new Group();
+
+		root.getChildren().addAll(bottomLayer, midLayer, topLayer);
+
 		this.heartDisplay = new HeartDisplay(HEART_DISPLAY_X_POSITION, HEART_DISPLAY_Y_POSITION, heartsToDisplay);
 		this.winImage = new WinImage(IMAGE_X_POSITION, IMAGE_Y_POSITION+35);
 		this.gameOverImage = new GameOverImage(IMAGE_X_POSITION, IMAGE_Y_POSITION);
@@ -31,15 +39,15 @@ public class LevelView {
 	}
 	
 	public void showHeartDisplay() {
-		root.getChildren().add(heartDisplay.getContainer());
+		topLayer.getChildren().add(heartDisplay.getContainer());
 	}
 
 	public void showWinImage() {
-		root.getChildren().add(winImage);
+		topLayer.getChildren().add(winImage);
 	}
 	
 	public void showGameOverImage() {
-		root.getChildren().add(gameOverImage);
+		topLayer.getChildren().add(gameOverImage);
 	}
 	
 	public void removeHearts(int heartsRemaining) {
@@ -51,21 +59,14 @@ public class LevelView {
 
 	public void showPauseMenuImage() {
 		//added dark overlay
-		if (!root.getChildren().contains(darkOverlay)) {
-			root.getChildren().add(darkOverlay);
-		}
-		else{
-			root.getChildren().remove(darkOverlay);
-			root.getChildren().add(darkOverlay);
+		if (!topLayer.getChildren().contains(darkOverlay)) {
+			topLayer.getChildren().add(darkOverlay);
 		}
 		darkOverlay.setVisible(true);
 
 		//added pause menu
-		if (!root.getChildren().contains(pauseMenuImage)) {
-			root.getChildren().add(pauseMenuImage);
-		} else {
-			root.getChildren().remove(pauseMenuImage);
-			root.getChildren().add(pauseMenuImage);//remove image and re-added it to ensure it is always on top
+		if (!topLayer.getChildren().contains(pauseMenuImage)) {
+			topLayer.getChildren().add(pauseMenuImage);
 		}
 		pauseMenuImage.showPauseMenu();
 	}

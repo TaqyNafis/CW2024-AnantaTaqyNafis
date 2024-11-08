@@ -1,9 +1,6 @@
 package com.example.demo;
 
-import com.example.demo.MainMenu;
-
 import java.io.IOException;
-import java.security.Key;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -26,6 +23,10 @@ public abstract class LevelParent extends Observable {
 	private final double enemyMaximumYPosition;
 
 	private final Group root;
+	private final Group topLayer;
+	private final Group midLayer;
+	private final Group bottomLayer;
+
 	private final Timeline timeline;
 	private final UserPlane user;
 	private final Scene scene;
@@ -37,13 +38,19 @@ public abstract class LevelParent extends Observable {
 	private final List<ActiveActorDestructible> enemyProjectiles;
 	
 	private int currentNumberOfEnemies;
-	private LevelView levelView;
+	private final LevelView levelView;
 	private boolean isSPaceEnabled= true;
 	private boolean isPause = false;
 	private boolean isESCEnabled= true;
 
 	public LevelParent(String backgroundImageName, double screenHeight, double screenWidth, int playerInitialHealth) {
 		this.root = new Group();
+		this.topLayer = new Group();
+		this.midLayer = new Group();
+		this.bottomLayer = new Group();
+
+		root.getChildren().addAll(bottomLayer, midLayer, topLayer);
+
 		this.scene = new Scene(root, screenWidth, screenHeight);
 		this.timeline = new Timeline();
 		this.user = new UserPlane(playerInitialHealth);
@@ -101,8 +108,7 @@ public abstract class LevelParent extends Observable {
 
 	private void removeAssetsFromScene(List<ActiveActorDestructible> actors) {
 		if (actors != null) {
-			// Remove actors from the scene root
-			root.getChildren().removeAll(actors);
+			midLayer.getChildren().removeAll(actors);
 
 			// Clear the list of actors
 			actors.clear();
@@ -159,12 +165,12 @@ public abstract class LevelParent extends Observable {
 				if (kc == KeyCode.UP || kc == KeyCode.DOWN) user.stop();
 			}
 		});
-		root.getChildren().add(background);
+		bottomLayer.getChildren().add(background);
 	}
 
 	private void fireProjectile() {
 		ActiveActorDestructible projectile = user.fireProjectile();
-		root.getChildren().add(projectile);
+		midLayer.getChildren().add(projectile);
 		userProjectiles.add(projectile);
 	}
 
@@ -174,8 +180,9 @@ public abstract class LevelParent extends Observable {
 
 	private void spawnEnemyProjectile(ActiveActorDestructible projectile) {
 		if (projectile != null) {
-			root.getChildren().add(projectile);
+			midLayer.getChildren().add(projectile);
 			enemyProjectiles.add(projectile);
+			projectile.toBack();
 		}
 	}
 
@@ -196,7 +203,7 @@ public abstract class LevelParent extends Observable {
 	private void removeDestroyedActors(List<ActiveActorDestructible> actors) {
 		List<ActiveActorDestructible> destroyedActors = actors.stream().filter(actor -> actor.isDestroyed())
 				.collect(Collectors.toList());
-		root.getChildren().removeAll(destroyedActors);
+		midLayer.getChildren().removeAll(destroyedActors);
 		actors.removeAll(destroyedActors);
 	}
 
@@ -269,6 +276,15 @@ public abstract class LevelParent extends Observable {
 	protected Group getRoot() {
 		return root;
 	}
+	protected Group getTopLayer() {
+		return topLayer;
+	}
+	protected Group getMidLayer() {
+		return midLayer;
+	}
+	protected Group getBottomLayer() {
+		return bottomLayer;
+	}
 
 	protected int getCurrentNumberOfEnemies() {
 		return enemyUnits.size();
@@ -276,7 +292,7 @@ public abstract class LevelParent extends Observable {
 
 	protected void addEnemyUnit(ActiveActorDestructible enemy) {
 		enemyUnits.add(enemy);
-		root.getChildren().add(enemy);
+		midLayer.getChildren().add(enemy);
 	}
 
 	protected double getEnemyMaximumYPosition() {
