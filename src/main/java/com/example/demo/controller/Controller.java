@@ -26,7 +26,7 @@ public class Controller implements Observer {
 		stage.heightProperty().addListener((obs, oldVal, newVal) -> centerWindow());
 	}
 
-	public void launchGame() throws ClassNotFoundException, NoSuchMethodException, SecurityException,
+	public void startArcade() throws ClassNotFoundException, NoSuchMethodException, SecurityException,
 			InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException  {
 
 			stage.show();

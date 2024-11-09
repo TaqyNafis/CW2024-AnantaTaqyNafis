@@ -9,13 +9,13 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class MainMenu {
-    private static final int SCREEN_WIDTH = 680;
-    private static final int SCREEN_HEIGHT = 440;
+    private static final int SCREEN_WIDTH = 640;
+    private static final int SCREEN_HEIGHT = 430;
     private static final String TITLE = "Sky Battle";
-    private static final String MAIN_MENU = "/fxml/MainMenu.fxml";
+    private static final String MAIN_MENU_FXML = "/fxml/MainMenu.fxml";
 
     public static void showMainMenu(Stage stage, Controller gameController) throws IOException {
-        FXMLLoader loader = new FXMLLoader(MainMenu.class.getResource(MAIN_MENU));
+        FXMLLoader loader = new FXMLLoader(MainMenu.class.getResource(MAIN_MENU_FXML));
         Parent root = loader.load();
 
         MainMenuController mainMenuController = loader.getController();

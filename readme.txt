@@ -11,6 +11,7 @@ IMPLEMENTED FEATURES AND CHANGES
 - Pause Functionality and Pause Menu
 - Auto-Centered Window When Screen Size Changes
 - Properly clean up assets when changing levels
+- Control Menu
 
 PLANNED FEATURES
 =======================================
@@ -23,13 +24,16 @@ NEW JAVA CLASSES
    - Handles the display of the pause menu image during gameplay.
 
 2. **MainMenuController Class**  
-   - Manages the control of the main menu.
+   - Manages control of main menu.
 
 3. **HowToPlayController Class**  
-   - Manages the control of the "How to Play" menu.
+   - Manages control of How to Play menu.
 
 4. **MainMenu Class**  
    - Responsible for displaying the main menu of the game.
+
+5. **ControlController class**
+   - Manages control of controls menu
 
 MODIFIED FEATURES AND CHANGES
 =======================================
@@ -40,6 +44,7 @@ MODIFIED FEATURES AND CHANGES
 
 2. **Controller Class**  
    - Added `centerWindow()` function to center the game window when resized, with a listener for size changes.
+   - rename 'launchgame' function to 'startArcade'
 
 3. **ShieldImage Class**  
    - Updated image path for the shield from "shield.jpg" to "shield.png" using `IMAGE_NAME` variable with the `getResource` method.
