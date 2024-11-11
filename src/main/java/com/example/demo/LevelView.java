@@ -3,6 +3,9 @@ package com.example.demo;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Screen;
+import javafx.scene.text.Text;
+import javafx.scene.text.Font;
 
 public class LevelView {
 	
@@ -10,12 +13,13 @@ public class LevelView {
 	private static final double HEART_DISPLAY_Y_POSITION = 25;
 	private static final int IMAGE_X_POSITION = 335;
 	private static final int IMAGE_Y_POSITION = 95;
-	private static final int SCREEN_WIDTH = 1300;
-	private static final int SCREEN_HEIGHT = 750;
+	private static final double SCREEN_WIDTH = Screen.getPrimary().getBounds().getWidth();
+	private static final double SCREEN_HEIGHT = Screen.getPrimary().getBounds().getHeight();
 
 	private final Group topLayer;
 	private final Group midLayer;
 	private final Group bottomLayer;
+	private final Text controlInformation;
 
 	private final WinImage winImage;
 	private final GameOverImage gameOverImage;
@@ -35,11 +39,25 @@ public class LevelView {
 		this.gameOverImage = new GameOverImage(IMAGE_X_POSITION, IMAGE_Y_POSITION);
 		this.pauseMenuImage = new PauseMenuImage(IMAGE_X_POSITION, IMAGE_Y_POSITION);
 		this.darkOverlay = new Rectangle(SCREEN_WIDTH, SCREEN_HEIGHT, Color.rgb(0, 0, 0, 0.6));
+
+		topLayer.getChildren().add(darkOverlay);
+		topLayer.getChildren().add(pauseMenuImage);
 		darkOverlay.setVisible(false);
+
+		this.controlInformation = new Text("[ESC] to pause	[R]to reset to level 1	[ENTER]to go back to main menu");
+		controlInformation.setFont(new Font("Arial", 18));
+		controlInformation.setFill(Color.BLACK);
+		controlInformation.setX(600);
+		controlInformation.setY(700);
+
+		// Add controlInformation to topLayer for visibility
+		topLayer.getChildren().add(controlInformation);
+
 	}
 	
 	public void showHeartDisplay() {
 		topLayer.getChildren().add(heartDisplay.getContainer());
+		heartDisplay.getContainer().toBack();
 	}
 
 	public void showWinImage() {
@@ -58,16 +76,7 @@ public class LevelView {
 	}
 
 	public void showPauseMenuImage() {
-		//added dark overlay
-		if (!topLayer.getChildren().contains(darkOverlay)) {
-			topLayer.getChildren().add(darkOverlay);
-		}
 		darkOverlay.setVisible(true);
-
-		//added pause menu
-		if (!topLayer.getChildren().contains(pauseMenuImage)) {
-			topLayer.getChildren().add(pauseMenuImage);
-		}
 		pauseMenuImage.showPauseMenu();
 	}
 

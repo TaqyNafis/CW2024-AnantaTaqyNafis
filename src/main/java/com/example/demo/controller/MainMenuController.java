@@ -12,6 +12,7 @@ public class MainMenuController {
 
     private Stage stage;
     private Controller gameController;
+    private EndlessController endlessController;
 
     private static final String HOW_TO_PLAY_FXML = "/fxml/HowToPlay.fxml";
     private static final String CONTROL_FXML = "/fxml/Controls.fxml";
@@ -20,6 +21,7 @@ public class MainMenuController {
     public void initialize(Stage stage, Controller gameController) {
         this.stage = stage;
         this.gameController = gameController;
+        this.endlessController = new EndlessController(stage);
     }
 
     @FXML
@@ -27,7 +29,18 @@ public class MainMenuController {
         try {
             stage.setWidth(1300);
             stage.setHeight(750);
-            gameController.startArcade();
+            gameController.launchArcadeMode();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void startEndlessMode() {
+        try {
+            stage.setWidth(1300);
+            stage.setHeight(750);
+            endlessController.launchEndlessMode();
         } catch (Exception e) {
             e.printStackTrace();
         }

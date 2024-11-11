@@ -15,8 +15,8 @@ import com.example.demo.LevelParent;
 
 public class Controller implements Observer {
 
-	private static final String LEVEL_ONE_CLASS_NAME = "com.example.demo.LevelOne";
 	private final Stage stage;
+	private static final String LEVEL_ONE_CLASS_NAME = "com.example.demo.LevelOne";
 
 	public Controller(Stage stage) {
 		this.stage = stage;
@@ -26,7 +26,7 @@ public class Controller implements Observer {
 		stage.heightProperty().addListener((obs, oldVal, newVal) -> centerWindow());
 	}
 
-	public void startArcade() throws ClassNotFoundException, NoSuchMethodException, SecurityException,
+	public void launchArcadeMode() throws ClassNotFoundException, NoSuchMethodException, SecurityException,
 			InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException  {
 
 			stage.show();

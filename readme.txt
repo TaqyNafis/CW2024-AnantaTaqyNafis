@@ -6,17 +6,19 @@ https://github.com/TaqyNafis/CW2024-AnantaTaqyNafis
 
 IMPLEMENTED FEATURES AND CHANGES
 =======================================
+- 	change image size and blank space so it matches their visual
 - Main Menu
 - How to Play Menu
 - Pause Functionality and Pause Menu
 - Auto-Centered Window When Screen Size Changes
 - Properly clean up assets when changing levels
-- Control Menu
+- View Control Menu
+- Endless Mode(still need polishing)
 
 PLANNED FEATURES
 =======================================
-- Endless Mode
-- More enemy variety
+- Change to the boss battle system
+- add invincibility frame when player take damage
 
 NEW JAVA CLASSES
 =======================================
@@ -34,6 +36,15 @@ NEW JAVA CLASSES
 
 5. **ControlController class**
    - Manages control of controls menu
+
+6. **EndlessController class**
+   -Manage control for go to endless mode
+
+7. **LevelEndless Class**
+   -Manage the endless mode
+
+8. **LevelParentEndless class**
+   -Mange endless level function 
 
 MODIFIED FEATURES AND CHANGES
 =======================================
@@ -81,6 +92,8 @@ MODIFIED FEATURES AND CHANGES
 
 8. **LevelViewLevelTwo Class**  
    - Removed `showShield()` and `hideShield()` functions, now handled in `ShieldImage` class.
+   -Remove 'addImageToRoot'
+
 
 9. **UserPlane Class**  
    - Updated upper and lower bounds for the user plane's position.  
@@ -91,6 +104,7 @@ MODIFIED FEATURES AND CHANGES
     - Updated upper and lower bounds for boss plane's position.  
     - Adjusted image height.  
     - Modified `activateShield()` and `deactivateShield()` functions to properly manage shield.
+    - Added 'getshield()' function
 
 UNEXPECTED PROBLEMS AND SOLUTIONS
 =======================================

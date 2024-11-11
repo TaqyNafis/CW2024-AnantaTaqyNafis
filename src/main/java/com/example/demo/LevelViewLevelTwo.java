@@ -24,11 +24,7 @@ public class LevelViewLevelTwo extends LevelView {
 		root.getChildren().addAll(bottomLayer, midLayer, topLayer);
 
 		this.shieldImage = new ShieldImage(SHIELD_X_POSITION, SHIELD_Y_POSITION);
-		addImagesToRoot();
 	}
-	
-	private void addImagesToRoot() {
-		midLayer.getChildren().addAll(shieldImage);
-	}
+
 
 }

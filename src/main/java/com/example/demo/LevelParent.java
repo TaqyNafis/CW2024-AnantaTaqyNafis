@@ -16,6 +16,7 @@ import javafx.util.Duration;
 
 public abstract class LevelParent extends Observable {
 
+
 	private static final double SCREEN_HEIGHT_ADJUSTMENT = 150;
 	private static final int MILLISECOND_DELAY = 50;
 	private final double screenHeight;
@@ -32,7 +33,7 @@ public abstract class LevelParent extends Observable {
 	private final Scene scene;
 	private final ImageView background;
 
-	private final List<ActiveActorDestructible> friendlyUnits;
+	public final List<ActiveActorDestructible> friendlyUnits;
 	private final List<ActiveActorDestructible> enemyUnits;
 	private final List<ActiveActorDestructible> userProjectiles;
 	private final List<ActiveActorDestructible> enemyProjectiles;
@@ -43,7 +44,10 @@ public abstract class LevelParent extends Observable {
 	private boolean isPause = false;
 	private boolean isESCEnabled= true;
 
+	private static final String LEVEL_ONE_CLASS_NAME = "com.example.demo.LevelOne";
+
 	public LevelParent(String backgroundImageName, double screenHeight, double screenWidth, int playerInitialHealth) {
+
 		this.root = new Group();
 		this.topLayer = new Group();
 		this.midLayer = new Group();
@@ -153,7 +157,7 @@ public abstract class LevelParent extends Observable {
 				if (kc == KeyCode.DOWN) user.moveDown();
 				if (kc == KeyCode.SPACE && isSPaceEnabled) fireProjectile();
 				if (kc == KeyCode.ESCAPE && isESCEnabled) pauseLevel();
-				if (kc == KeyCode.R) resetLevel();
+				if (kc == KeyCode.R) resetLevel(LEVEL_ONE_CLASS_NAME);
 				if (kc == KeyCode.ENTER) {
 					goToMainMenu((Stage) scene.getWindow());
 				}
@@ -313,7 +317,7 @@ public abstract class LevelParent extends Observable {
 
 	/*new function*/
 	//pause function
-	private void pauseLevel (){
+	public void pauseLevel (){
 		if (!isPause){
 		isPause = true;
 		isSPaceEnabled=false;
@@ -327,12 +331,12 @@ public abstract class LevelParent extends Observable {
 	}
 
 	//reset function
-	private void resetLevel(){
-		goToNextLevel("com.example.demo.LevelOne");
+	public void resetLevel( String level){
+		goToNextLevel(level);
 	}
 
 	//go to main menu
-	private void goToMainMenu(Stage stage) {
+	public void goToMainMenu(Stage stage) {
 		try {
 			clearAsset();
 			Controller gameController = new Controller(stage);

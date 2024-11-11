@@ -17,7 +17,7 @@
                </image>
             </ImageView>
           <Button layoutX="216.0" layoutY="268.0" mnemonicParsing="false" onAction="#showHowToPlay" prefHeight="59.0" prefWidth="208.0" text="How to Play" />
-            <Button accessibleRole="TABLE_COLUMN" layoutX="411.0" layoutY="192.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="208.0" text="Endless" />
+            <Button accessibleRole="TABLE_COLUMN" layoutX="411.0" layoutY="192.0" mnemonicParsing="false" onAction="#startEndlessMode" prefHeight="59.0" prefWidth="208.0" text="Endless" />
           <Button layoutX="14.0" layoutY="192.0" mnemonicParsing="false" onAction="#startArcadeMode" prefHeight="59.0" prefWidth="208.0" text="Arcade" />
             <Button accessibleRole="TABLE_COLUMN" layoutX="566.0" layoutY="327.0" mnemonicParsing="false" onAction="#goToControl" prefHeight="20.0" prefWidth="13.0" text="?">
                <font>
