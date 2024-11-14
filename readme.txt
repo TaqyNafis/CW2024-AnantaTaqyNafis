@@ -19,6 +19,7 @@ PLANNED FEATURES
 =======================================
 - Change to the boss battle system
 - add invincibility frame when player take damage
+- sound maybe?
 
 NEW JAVA CLASSES
 =======================================
@@ -52,6 +53,7 @@ MODIFIED FEATURES AND CHANGES
 1. **Main Class**  
    - Changed to show the main menu first upon game launch instead of starting the level directly.  
    - Set the starting screen width to 640x400.
+   - Using logger import to replace `printStackTrace()`
 
 2. **Controller Class**  
    - Added `centerWindow()` function to center the game window when resized, with a listener for size changes.
@@ -59,15 +61,18 @@ MODIFIED FEATURES AND CHANGES
 
 3. **ShieldImage Class**  
    - Updated image path for the shield from "shield.jpg" to "shield.png" using `IMAGE_NAME` variable with the `getResource` method.
+   - - made sure that function is not able to return Null
 
 4. **WinImage Class**  
    - Removed the `showWinImage()` function, as the win image is now shown by default.
+   - made sure that function is not able to return Null
 
 5. **GameOverImage Class**  
    - Set width and height of the image to 500x600.
+   - made sure that function is not able to return Null
 
 6. **LevelParent Class**  
-   - Added bottom, middle, and top layers to root nodes for better asset separation.  
+   - Added bottom, middle, and top layers to root nodes for better asset separation and remove root variable.  
      - Bottom layer: Background image  
      - Middle layer: Updatable actors (plane, projectiles)  
      - Top layer: GUI elements (life counter, game over image, etc.)  
@@ -78,8 +83,16 @@ MODIFIED FEATURES AND CHANGES
    - Added `pauseLevel()` function to pause gameplay and show the pause menu image.  
    - Added `resetLevel()` function to reset the level to Level 1.  
    - Modified projectile firing to check if Space key is enabled.
+   - Made class to not be able to return NULL
+   - replace `EventHandler<KeyEvent>()`with Lambda
+   - replace method refrence for `updateActors` and `RemoveDestroyedActors` with lambda
+   - simplify 'collect(toList())' to be replaced with 'toList()'
 
 7. **LevelView Class**  
+   - Added bottom, middle, and top layers to root nodes for better asset separation and remove root variable.  
+     - Bottom layer: Background image  
+     - Middle layer: Updatable actors (plane, projectiles)  
+     - Top layer: GUI elements (life counter, game over image, etc.)  
    - Replaced individual win/lose image position variables with standardized `IMAGE_X_POSITION` and `IMAGE_Y_POSITION`.  
    - Added dark overlay background and pause menu to level view.  
    - Added `SCREEN_WIDTH` and `SCREEN_HEIGHT` for dark overlay.  
@@ -91,8 +104,13 @@ MODIFIED FEATURES AND CHANGES
    - Added `goToMainMenu()` function to transition from level to main menu.
 
 8. **LevelViewLevelTwo Class**  
+   - Added bottom, middle, and top layers to root nodes for better asset separation and remove root variable.  
+     - Bottom layer: Background image  
+     - Middle layer: Updatable actors (plane, projectiles)  
+     - Top layer: GUI elements (life counter, game over image, etc.)  
    - Removed `showShield()` and `hideShield()` functions, now handled in `ShieldImage` class.
    -Remove 'addImageToRoot'
+     - Change initiateLevelViewLevel() function to make it shorter but still return same
 
 
 9. **UserPlane Class**  
@@ -105,6 +123,22 @@ MODIFIED FEATURES AND CHANGES
     - Adjusted image height.  
     - Modified `activateShield()` and `deactivateShield()` functions to properly manage shield.
     - Added 'getshield()' function
+
+11. **HeartDisplay**
+    - Change "ContainerXposition","ContainerYposition" and numberOfHeartsToDisplay  to be final
+    - Change so that `initializeHearts()` wont be able to return NULL
+
+12. **ActiveActor class**
+    - chane Active actor class so it won't return nulls
+
+13. **ActiveActorDestructible class**
+    -removed `setDestroyed()` function since it is redundant
+    -change 'destroy()' function to call isDestroyed instead of setDestroyed
+
+14.**Other**
+- added fxml folder under resources
+- added fxml file for main menu, how to play menu and control menu
+- change module info so that it can access java logging package; to be used to replace` printStackTrace()` usage as a more robust logging)'
 
 UNEXPECTED PROBLEMS AND SOLUTIONS
 =======================================

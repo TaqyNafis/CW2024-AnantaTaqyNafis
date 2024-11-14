@@ -8,6 +8,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
 public class MainMenuController {
 
     private Stage stage;
@@ -16,6 +20,8 @@ public class MainMenuController {
 
     private static final String HOW_TO_PLAY_FXML = "/fxml/HowToPlay.fxml";
     private static final String CONTROL_FXML = "/fxml/Controls.fxml";
+    private static final Logger logger = Logger.getLogger(MainMenuController.class.getName());
+
 
     // Initialize method to set the stage and game controller
     public void initialize(Stage stage, Controller gameController) {
@@ -31,7 +37,7 @@ public class MainMenuController {
             stage.setHeight(750);
             gameController.launchArcadeMode();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Error starting Arcade Mode", e);
         }
     }
 
@@ -42,7 +48,7 @@ public class MainMenuController {
             stage.setHeight(750);
             endlessController.launchEndlessMode();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Error starting Endless Mode", e);
         }
     }
 
@@ -64,7 +70,7 @@ public class MainMenuController {
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Error starting How to Play Menu", e);
         }
     }
 
@@ -86,7 +92,7 @@ public class MainMenuController {
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Error starting Control Menu", e);
         }
     }
 

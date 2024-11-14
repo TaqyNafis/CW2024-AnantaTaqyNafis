@@ -63,7 +63,7 @@ public abstract class LevelParentEndless extends Observable {
         this.userProjectiles = new ArrayList<>();
         this.enemyProjectiles = new ArrayList<>();
 
-        this.background = new ImageView(new Image(getClass().getResource(backgroundImageName).toExternalForm()));
+        this.background = new ImageView(new Image(Objects.requireNonNull(getClass().getResource(backgroundImageName)).toExternalForm()));
         this.screenHeight = screenHeight;
         this.screenWidth = screenWidth;
         this.enemyMaximumYPosition = screenHeight - SCREEN_HEIGHT_ADJUSTMENT;
@@ -150,24 +150,20 @@ public abstract class LevelParentEndless extends Observable {
         background.setFocusTraversable(true);
         background.setFitHeight(screenHeight);
         background.setFitWidth(screenWidth);
-        background.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            public void handle(KeyEvent e) {
-                KeyCode kc = e.getCode();
-                if (kc == KeyCode.UP) user.moveUp();
-                if (kc == KeyCode.DOWN) user.moveDown();
-                if (kc == KeyCode.SPACE && isSPaceEnabled) fireProjectile();
-                if (kc == KeyCode.ESCAPE && isESCEnabled) pauseLevel();
-                if (kc == KeyCode.R) resetLevel(ENDLESS_CLASS_NAME);
-                if (kc == KeyCode.ENTER) {
-                    goToMainMenu((Stage) scene.getWindow());
-                }
+        background.setOnKeyPressed(e -> {
+            KeyCode kc = e.getCode();
+            if (kc == KeyCode.UP) user.moveUp();
+            if (kc == KeyCode.DOWN) user.moveDown();
+            if (kc == KeyCode.SPACE && isSPaceEnabled) fireProjectile();
+            if (kc == KeyCode.ESCAPE && isESCEnabled) pauseLevel();
+            if (kc == KeyCode.R) resetLevel(ENDLESS_CLASS_NAME);
+            if (kc == KeyCode.ENTER) {
+                goToMainMenu((Stage) scene.getWindow());
             }
         });
-        background.setOnKeyReleased(new EventHandler<KeyEvent>() {
-            public void handle(KeyEvent e) {
-                KeyCode kc = e.getCode();
-                if (kc == KeyCode.UP || kc == KeyCode.DOWN) user.stop();
-            }
+        background.setOnKeyReleased(e -> {
+            KeyCode kc = e.getCode();
+            if (kc == KeyCode.UP || kc == KeyCode.DOWN) user.stop();
         });
         bottomLayer.getChildren().add(background);
     }
@@ -191,10 +187,10 @@ public abstract class LevelParentEndless extends Observable {
     }
 
     private void updateActors() {
-        friendlyUnits.forEach(plane -> plane.updateActor());
-        enemyUnits.forEach(enemy -> enemy.updateActor());
-        userProjectiles.forEach(projectile -> projectile.updateActor());
-        enemyProjectiles.forEach(projectile -> projectile.updateActor());
+        friendlyUnits.forEach(ActiveActorDestructible::updateActor);
+        enemyUnits.forEach(ActiveActorDestructible::updateActor);
+        userProjectiles.forEach(ActiveActorDestructible::updateActor);
+        enemyProjectiles.forEach(ActiveActorDestructible::updateActor);
     }
 
     private void removeAllDestroyedActors() {
@@ -205,7 +201,7 @@ public abstract class LevelParentEndless extends Observable {
     }
 
     private void removeDestroyedActors(List<ActiveActorDestructible> actors) {
-        List<ActiveActorDestructible> destroyedActors = actors.stream().filter(actor -> actor.isDestroyed())
+        List<ActiveActorDestructible> destroyedActors = actors.stream().filter(ActiveActorDestructible::isDestroyed)
                 .collect(Collectors.toList());
         midLayer.getChildren().removeAll(destroyedActors);
         actors.removeAll(destroyedActors);
@@ -257,13 +253,6 @@ public abstract class LevelParentEndless extends Observable {
 
     private boolean enemyHasPenetratedDefenses(ActiveActorDestructible enemy) {
         return Math.abs(enemy.getTranslateX()) > screenWidth;
-    }
-
-    protected void winGame() {
-        isESCEnabled= false;
-        isSPaceEnabled = false;
-        timeline.stop();
-        levelView.showWinImage();
     }
 
     protected void loseGame() {

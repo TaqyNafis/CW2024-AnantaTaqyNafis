@@ -17,11 +17,8 @@ public class LevelView {
 	private static final double SCREEN_HEIGHT = Screen.getPrimary().getBounds().getHeight();
 
 	private final Group topLayer;
-	private final Group midLayer;
-	private final Group bottomLayer;
-	private final Text controlInformation;
 
-	private final WinImage winImage;
+    private final WinImage winImage;
 	private final GameOverImage gameOverImage;
 	private final HeartDisplay heartDisplay;
 	private final PauseMenuImage pauseMenuImage;
@@ -29,8 +26,8 @@ public class LevelView {
 	
 	public LevelView(Group root, int heartsToDisplay) {
 		this.topLayer = new Group();
-		this.midLayer = new Group();
-		this.bottomLayer = new Group();
+        Group midLayer = new Group();
+        Group bottomLayer = new Group();
 
 		root.getChildren().addAll(bottomLayer, midLayer, topLayer);
 
@@ -44,7 +41,7 @@ public class LevelView {
 		topLayer.getChildren().add(pauseMenuImage);
 		darkOverlay.setVisible(false);
 
-		this.controlInformation = new Text("[ESC] to pause	[R]to reset to level 1	[ENTER]to go back to main menu");
+        Text controlInformation = new Text("[ESC] to pause		[R]to restart to Start		[ENTER]to go back to main menu");
 		controlInformation.setFont(new Font("Arial", 18));
 		controlInformation.setFill(Color.BLACK);
 		controlInformation.setX(600);

@@ -37,6 +37,6 @@ public class LevelEndless extends LevelParentEndless {
 
     @Override
     protected LevelView instantiateLevelView() {
-        return new LevelView(getTopLayer(), PLAYER_INITIAL_HEALTH);
+        return new LevelViewEndless(getTopLayer(), PLAYER_INITIAL_HEALTH);
     }
 }

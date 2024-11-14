@@ -2,11 +2,9 @@ package com.example.demo;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import com.example.demo.controller.Controller;
 import javafx.animation.*;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.*;
@@ -14,7 +12,15 @@ import javafx.scene.input.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public abstract class LevelParent extends Observable {
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
+public abstract class LevelParent {
+
+	private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
 
 	private static final double SCREEN_HEIGHT_ADJUSTMENT = 150;
@@ -23,8 +29,7 @@ public abstract class LevelParent extends Observable {
 	private final double screenWidth;
 	private final double enemyMaximumYPosition;
 
-	private final Group root;
-	private final Group topLayer;
+    private final Group topLayer;
 	private final Group midLayer;
 	private final Group bottomLayer;
 
@@ -32,23 +37,24 @@ public abstract class LevelParent extends Observable {
 	private final UserPlane user;
 	private final Scene scene;
 	private final ImageView background;
+	private final LevelView levelView;
 
 	public final List<ActiveActorDestructible> friendlyUnits;
 	private final List<ActiveActorDestructible> enemyUnits;
 	private final List<ActiveActorDestructible> userProjectiles;
 	private final List<ActiveActorDestructible> enemyProjectiles;
-	
+
 	private int currentNumberOfEnemies;
-	private final LevelView levelView;
 	private boolean isSPaceEnabled= true;
 	private boolean isPause = false;
 	private boolean isESCEnabled= true;
 
 	private static final String LEVEL_ONE_CLASS_NAME = "com.example.demo.LevelOne";
+	private static final Logger logger = Logger.getLogger(LevelParent.class.getName());
 
 	public LevelParent(String backgroundImageName, double screenHeight, double screenWidth, int playerInitialHealth) {
 
-		this.root = new Group();
+        Group root = new Group();
 		this.topLayer = new Group();
 		this.midLayer = new Group();
 		this.bottomLayer = new Group();
@@ -63,7 +69,7 @@ public abstract class LevelParent extends Observable {
 		this.userProjectiles = new ArrayList<>();
 		this.enemyProjectiles = new ArrayList<>();
 
-		this.background = new ImageView(new Image(getClass().getResource(backgroundImageName).toExternalForm()));
+		this.background = new ImageView(new Image(Objects.requireNonNull(getClass().getResource(backgroundImageName)).toExternalForm()));
 		this.screenHeight = screenHeight;
 		this.screenWidth = screenWidth;
 		this.enemyMaximumYPosition = screenHeight - SCREEN_HEIGHT_ADJUSTMENT;
@@ -119,10 +125,17 @@ public abstract class LevelParent extends Observable {
 		}
 	}
 
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		pcs.addPropertyChangeListener(listener);
+	}
+
+	public void removePropertyChangeListener(PropertyChangeListener listener) {
+		pcs.removePropertyChangeListener(listener);
+	}
+
 	public void goToNextLevel(String levelName) {
 		clearAsset();
-		setChanged();
-		notifyObservers(levelName);
+		pcs.firePropertyChange("level", null, levelName);
 	}
 
 	private void updateScene() {
@@ -150,25 +163,21 @@ public abstract class LevelParent extends Observable {
 		background.setFocusTraversable(true);
 		background.setFitHeight(screenHeight);
 		background.setFitWidth(screenWidth);
-		background.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			public void handle(KeyEvent e) {
-				KeyCode kc = e.getCode();
-				if (kc == KeyCode.UP) user.moveUp();
-				if (kc == KeyCode.DOWN) user.moveDown();
-				if (kc == KeyCode.SPACE && isSPaceEnabled) fireProjectile();
-				if (kc == KeyCode.ESCAPE && isESCEnabled) pauseLevel();
-				if (kc == KeyCode.R) resetLevel(LEVEL_ONE_CLASS_NAME);
-				if (kc == KeyCode.ENTER) {
-					goToMainMenu((Stage) scene.getWindow());
-				}
-			}
-		});
-		background.setOnKeyReleased(new EventHandler<KeyEvent>() {
-			public void handle(KeyEvent e) {
-				KeyCode kc = e.getCode();
-				if (kc == KeyCode.UP || kc == KeyCode.DOWN) user.stop();
-			}
-		});
+		background.setOnKeyPressed(e -> {
+            KeyCode kc = e.getCode();
+            if (kc == KeyCode.UP) user.moveUp();
+            if (kc == KeyCode.DOWN) user.moveDown();
+            if (kc == KeyCode.SPACE && isSPaceEnabled) fireProjectile();
+            if (kc == KeyCode.ESCAPE && isESCEnabled) pauseLevel();
+            if (kc == KeyCode.R) resetLevel(LEVEL_ONE_CLASS_NAME);
+            if (kc == KeyCode.ENTER) {
+                goToMainMenu((Stage) scene.getWindow());
+            }
+        });
+		background.setOnKeyReleased(e -> {
+            KeyCode kc = e.getCode();
+            if (kc == KeyCode.UP || kc == KeyCode.DOWN) user.stop();
+        });
 		bottomLayer.getChildren().add(background);
 	}
 
@@ -191,10 +200,10 @@ public abstract class LevelParent extends Observable {
 	}
 
 	private void updateActors() {
-		friendlyUnits.forEach(plane -> plane.updateActor());
-		enemyUnits.forEach(enemy -> enemy.updateActor());
-		userProjectiles.forEach(projectile -> projectile.updateActor());
-		enemyProjectiles.forEach(projectile -> projectile.updateActor());
+		friendlyUnits.forEach(ActiveActorDestructible::updateActor);
+		enemyUnits.forEach(ActiveActorDestructible::updateActor);
+		userProjectiles.forEach(ActiveActorDestructible::updateActor);
+		enemyProjectiles.forEach(ActiveActorDestructible::updateActor);
 	}
 
 	private void removeAllDestroyedActors() {
@@ -205,8 +214,8 @@ public abstract class LevelParent extends Observable {
 	}
 
 	private void removeDestroyedActors(List<ActiveActorDestructible> actors) {
-		List<ActiveActorDestructible> destroyedActors = actors.stream().filter(actor -> actor.isDestroyed())
-				.collect(Collectors.toList());
+		List<ActiveActorDestructible> destroyedActors = actors.stream().filter(ActiveActorDestructible::isDestroyed)
+				.toList();
 		midLayer.getChildren().removeAll(destroyedActors);
 		actors.removeAll(destroyedActors);
 	}
@@ -276,16 +285,13 @@ public abstract class LevelParent extends Observable {
 	protected UserPlane getUser() {
 		return user;
 	}
-
-	protected Group getRoot() {
-		return root;
-	}
 	protected Group getTopLayer() {
 		return topLayer;
 	}
 	protected Group getMidLayer() {
 		return midLayer;
 	}
+	/*Not currently used but better to keep it in case it is needed*/
 	protected Group getBottomLayer() {
 		return bottomLayer;
 	}
@@ -342,7 +348,7 @@ public abstract class LevelParent extends Observable {
 			Controller gameController = new Controller(stage);
 			MainMenu.showMainMenu(stage, gameController);
 		} catch (IOException e) {
-			e.printStackTrace();
+		logger.log(Level.SEVERE, "Error Starting Main Menu", e);
 		}
 	}
 

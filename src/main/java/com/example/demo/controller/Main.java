@@ -5,7 +5,13 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import java.io.IOException;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
 public class Main extends Application {
+
+	private static final Logger logger = Logger.getLogger(Main.class.getName());
 
 	@Override
 	public void start(Stage stage) {
@@ -13,7 +19,7 @@ public class Main extends Application {
 			Controller gameController = new Controller(stage);
 			MainMenu.showMainMenu(stage, gameController);
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE, "Error starting MainMenu", e);
 		}
 	}
 
