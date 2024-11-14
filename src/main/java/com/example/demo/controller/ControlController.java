@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import  com.example.demo.MainMenu;
+import com.example.demo.Display.MainMenu;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
 import java.io.IOException;

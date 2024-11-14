@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.Projectiles;
 
 public class BossProjectile extends Projectile {
 	
@@ -20,5 +20,5 @@ public class BossProjectile extends Projectile {
 	public void updateActor() {
 		updatePosition();
 	}
-	
+
 }

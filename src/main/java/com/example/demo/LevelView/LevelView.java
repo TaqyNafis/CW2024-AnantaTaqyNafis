@@ -1,5 +1,9 @@
-package com.example.demo;
+package com.example.demo.LevelView;
 
+import com.example.demo.Display.GameOverImage;
+import com.example.demo.Display.HeartDisplay;
+import com.example.demo.Display.PauseMenuImage;
+import com.example.demo.Display.WinImage;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;

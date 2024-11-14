@@ -1,12 +1,16 @@
-package com.example.demo;
+package com.example.demo.LevelParent;
 
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import com.example.demo.Actor.ActiveActorDestructible;
+import com.example.demo.LevelView.LevelView;
+import com.example.demo.Display.MainMenu;
+import com.example.demo.Object.FighterPlane;
+import com.example.demo.Object.UserPlane;
 import com.example.demo.controller.Controller;
 import javafx.animation.*;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.*;

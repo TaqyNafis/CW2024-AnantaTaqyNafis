@@ -1,5 +1,11 @@
 package com.example.demo;
 
+import com.example.demo.Actor.ActiveActorDestructible;
+import com.example.demo.LevelParent.LevelParentEndless;
+import com.example.demo.LevelView.LevelView;
+import com.example.demo.LevelView.LevelViewEndless;
+import com.example.demo.Object.EnemyPlane;
+
 public class LevelEndless extends LevelParentEndless {
 
     private static final String BACKGROUND_IMAGE_NAME = "/com/example/demo/images/background1.jpg";

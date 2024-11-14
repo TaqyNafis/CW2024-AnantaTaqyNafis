@@ -1,5 +1,10 @@
 package com.example.demo;
 
+import com.example.demo.LevelParent.LevelParent;
+import com.example.demo.LevelView.LevelView;
+import com.example.demo.LevelView.LevelViewLevelTwo;
+import com.example.demo.Object.Boss;
+
 public class LevelTwo extends LevelParent {
 
 	private static final String BACKGROUND_IMAGE_NAME = "/com/example/demo/images/background2.jpg";

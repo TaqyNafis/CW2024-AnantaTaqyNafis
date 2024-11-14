@@ -1,8 +1,13 @@
-package com.example.demo;
+package com.example.demo.LevelParent;
 
 import java.io.IOException;
 import java.util.*;
 
+import com.example.demo.Actor.ActiveActorDestructible;
+import com.example.demo.LevelView.LevelView;
+import com.example.demo.Display.MainMenu;
+import com.example.demo.Object.FighterPlane;
+import com.example.demo.Object.UserPlane;
 import com.example.demo.controller.Controller;
 import javafx.animation.*;
 import javafx.scene.Group;
@@ -57,14 +62,14 @@ public abstract class LevelParent {
         Group root = new Group();
 		this.topLayer = new Group();
 		this.midLayer = new Group();
+		this.timeline = new Timeline();
+		this.user = new UserPlane(playerInitialHealth);
+		this.friendlyUnits = new ArrayList<>();
 		this.bottomLayer = new Group();
 
 		root.getChildren().addAll(bottomLayer, midLayer, topLayer);
 
 		this.scene = new Scene(root, screenWidth, screenHeight);
-		this.timeline = new Timeline();
-		this.user = new UserPlane(playerInitialHealth);
-		this.friendlyUnits = new ArrayList<>();
 		this.enemyUnits = new ArrayList<>();
 		this.userProjectiles = new ArrayList<>();
 		this.enemyProjectiles = new ArrayList<>();

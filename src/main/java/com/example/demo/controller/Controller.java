@@ -11,7 +11,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.application.Platform;
-import com.example.demo.LevelParent;
+import com.example.demo.LevelParent.LevelParent;
 
 public class Controller implements PropertyChangeListener {
 
