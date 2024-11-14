@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.Display;
 
 import com.example.demo.controller.Controller;
 import com.example.demo.controller.MainMenuController;
