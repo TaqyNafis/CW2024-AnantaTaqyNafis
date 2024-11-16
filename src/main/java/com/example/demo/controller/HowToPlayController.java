@@ -11,19 +11,19 @@ import java.util.logging.Logger;
 public class HowToPlayController {
 
     private Stage stage;
-    private Controller gameController;
+    private ArcadeController gameArcadeController;
     private static final Logger logger = Logger.getLogger(HowToPlayController.class.getName());
 
     // Initialize method to set the stage and game controller
-    public void initialize(Stage stage, Controller gameController) {
+    public void initialize(Stage stage, ArcadeController gameArcadeController) {
         this.stage = stage;
-        this.gameController = gameController;
+        this.gameArcadeController = gameArcadeController;
     }
     @FXML
     public void backToMainMenu() {
         try {
             // Call the MainMenu.showMainMenu method to show the main menu
-            MainMenu.showMainMenu(stage, gameController);
+            MainMenu.showMainMenu(stage, gameArcadeController);
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Error Showing Main Menu", e);
         }

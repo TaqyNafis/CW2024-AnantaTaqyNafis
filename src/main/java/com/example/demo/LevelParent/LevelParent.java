@@ -8,7 +8,7 @@ import com.example.demo.LevelView.LevelView;
 import com.example.demo.Display.MainMenu;
 import com.example.demo.Object.FighterPlane;
 import com.example.demo.Object.UserPlane;
-import com.example.demo.controller.Controller;
+import com.example.demo.controller.ArcadeController;
 import javafx.animation.*;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -26,7 +26,6 @@ import java.beans.PropertyChangeSupport;
 public abstract class LevelParent {
 
 	private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
-
 
 	private static final double SCREEN_HEIGHT_ADJUSTMENT = 150;
 	private static final int MILLISECOND_DELAY = 50;
@@ -54,7 +53,6 @@ public abstract class LevelParent {
 	private boolean isPause = false;
 	private boolean isESCEnabled= true;
 
-	private static final String LEVEL_ONE_CLASS_NAME = "com.example.demo.LevelOne";
 	private static final Logger logger = Logger.getLogger(LevelParent.class.getName());
 
 	public LevelParent(String backgroundImageName, double screenHeight, double screenWidth, int playerInitialHealth) {
@@ -92,6 +90,32 @@ public abstract class LevelParent {
 
 	protected abstract LevelView instantiateLevelView();
 
+	public void startGame() {
+		background.requestFocus();
+		timeline.play();
+	}
+
+	private void initializeBackground() {
+		background.setFocusTraversable(true);
+		background.setFitHeight(screenHeight);
+		background.setFitWidth(screenWidth);
+		background.setOnKeyPressed(e -> {
+			KeyCode kc = e.getCode();
+			if (kc == KeyCode.UP) user.moveUp();
+			if (kc == KeyCode.DOWN) user.moveDown();
+			if (kc == KeyCode.SPACE && isSPaceEnabled) fireProjectile();
+			if (kc == KeyCode.ESCAPE && isESCEnabled) pauseLevel();
+			if (kc == KeyCode.ENTER) {
+				goToMainMenu((Stage) scene.getWindow());
+			}
+		});
+		background.setOnKeyReleased(e -> {
+			KeyCode kc = e.getCode();
+			if (kc == KeyCode.UP || kc == KeyCode.DOWN) user.stop();
+		});
+		bottomLayer.getChildren().add(background);
+	}
+
 	public Scene initializeScene() {
 		initializeBackground();
 		initializeFriendlyUnits();
@@ -99,10 +123,21 @@ public abstract class LevelParent {
 		return scene;
 	}
 
-	public void startGame() {
-		background.requestFocus();
-		timeline.play();
+	private void initializeTimeline() {
+		timeline.setCycleCount(Timeline.INDEFINITE);
+		KeyFrame gameLoop = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> updateScene());
+		timeline.getKeyFrames().add(gameLoop);
 	}
+
+	private void removeAssetsFromScene(List<ActiveActorDestructible> actors) {
+		if (actors != null) {
+			midLayer.getChildren().removeAll(actors);
+
+			// Clear the list of actors
+			actors.clear();
+		}
+	}
+
 
 	public void clearAsset() {
 		timeline.stop();
@@ -120,22 +155,8 @@ public abstract class LevelParent {
 
 		System.gc();
 	}
-
-	private void removeAssetsFromScene(List<ActiveActorDestructible> actors) {
-		if (actors != null) {
-			midLayer.getChildren().removeAll(actors);
-
-			// Clear the list of actors
-			actors.clear();
-		}
-	}
-
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
 		pcs.addPropertyChangeListener(listener);
-	}
-
-	public void removePropertyChangeListener(PropertyChangeListener listener) {
-		pcs.removePropertyChangeListener(listener);
 	}
 
 	public void goToNextLevel(String levelName) {
@@ -156,34 +177,6 @@ public abstract class LevelParent {
 		updateKillCount();
 		updateLevelView();
 		checkIfGameOver();
-	}
-
-	private void initializeTimeline() {
-		timeline.setCycleCount(Timeline.INDEFINITE);
-		KeyFrame gameLoop = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> updateScene());
-		timeline.getKeyFrames().add(gameLoop);
-	}
-
-	private void initializeBackground() {
-		background.setFocusTraversable(true);
-		background.setFitHeight(screenHeight);
-		background.setFitWidth(screenWidth);
-		background.setOnKeyPressed(e -> {
-            KeyCode kc = e.getCode();
-            if (kc == KeyCode.UP) user.moveUp();
-            if (kc == KeyCode.DOWN) user.moveDown();
-            if (kc == KeyCode.SPACE && isSPaceEnabled) fireProjectile();
-            if (kc == KeyCode.ESCAPE && isESCEnabled) pauseLevel();
-            if (kc == KeyCode.R) resetLevel(LEVEL_ONE_CLASS_NAME);
-            if (kc == KeyCode.ENTER) {
-                goToMainMenu((Stage) scene.getWindow());
-            }
-        });
-		background.setOnKeyReleased(e -> {
-            KeyCode kc = e.getCode();
-            if (kc == KeyCode.UP || kc == KeyCode.DOWN) user.stop();
-        });
-		bottomLayer.getChildren().add(background);
 	}
 
 	private void fireProjectile() {
@@ -225,6 +218,18 @@ public abstract class LevelParent {
 		actors.removeAll(destroyedActors);
 	}
 
+	private void handleCollisions(List<ActiveActorDestructible> actors1,
+								  List<ActiveActorDestructible> actors2) {
+		for (ActiveActorDestructible actor : actors2) {
+			for (ActiveActorDestructible otherActor : actors1) {
+				if (actor.getBoundsInParent().intersects(otherActor.getBoundsInParent())) {
+					actor.takeDamage();
+					otherActor.takeDamage();
+				}
+			}
+		}
+	}
+
 	private void handlePlaneCollisions() {
 		handleCollisions(friendlyUnits, enemyUnits);
 	}
@@ -235,18 +240,6 @@ public abstract class LevelParent {
 
 	private void handleEnemyProjectileCollisions() {
 		handleCollisions(enemyProjectiles, friendlyUnits);
-	}
-
-	private void handleCollisions(List<ActiveActorDestructible> actors1,
-			List<ActiveActorDestructible> actors2) {
-		for (ActiveActorDestructible actor : actors2) {
-			for (ActiveActorDestructible otherActor : actors1) {
-				if (actor.getBoundsInParent().intersects(otherActor.getBoundsInParent())) {
-					actor.takeDamage();
-					otherActor.takeDamage();
-				}
-			}
-		}
 	}
 
 	private void handleEnemyPenetration() {
@@ -287,20 +280,6 @@ public abstract class LevelParent {
 		levelView.showGameOverImage();
 	}
 
-	protected UserPlane getUser() {
-		return user;
-	}
-	protected Group getTopLayer() {
-		return topLayer;
-	}
-	protected Group getMidLayer() {
-		return midLayer;
-	}
-	/*Not currently used but better to keep it in case it is needed*/
-	protected Group getBottomLayer() {
-		return bottomLayer;
-	}
-
 	protected int getCurrentNumberOfEnemies() {
 		return enemyUnits.size();
 	}
@@ -310,17 +289,6 @@ public abstract class LevelParent {
 		midLayer.getChildren().add(enemy);
 	}
 
-	protected double getEnemyMaximumYPosition() {
-		return enemyMaximumYPosition;
-	}
-
-	protected double getScreenWidth() {
-		return screenWidth;
-	}
-
-	protected boolean userIsDestroyed() {
-		return user.isDestroyed();
-	}
 
 	private void updateNumberOfEnemies() {
 		currentNumberOfEnemies = enemyUnits.size();
@@ -341,21 +309,53 @@ public abstract class LevelParent {
 		levelView.hidePauseMenuImage();}
 	}
 
-	//reset function
+	//reset level function
 	public void resetLevel( String level){
 		goToNextLevel(level);
 	}
 
-	//go to main menu
+	//go to main menu function
 	public void goToMainMenu(Stage stage) {
 		try {
 			clearAsset();
-			Controller gameController = new Controller(stage);
-			MainMenu.showMainMenu(stage, gameController);
+			ArcadeController gameArcadeController = new ArcadeController(stage);
+			MainMenu.showMainMenu(stage, gameArcadeController);
 		} catch (IOException e) {
 		logger.log(Level.SEVERE, "Error Starting Main Menu", e);
 		}
 	}
+
+	protected UserPlane getUser() {
+		return user;
+	}
+	protected Group getTopLayer() {
+		return topLayer;
+	}
+	protected Group getMidLayer() {
+		return midLayer;
+	}
+	/*Not currently used but better to keep it in case it is needed*/
+	protected Group getBottomLayer() {
+		return bottomLayer;
+	}
+
+	protected double getEnemyMaximumYPosition() {
+		return enemyMaximumYPosition;
+	}
+
+	protected double getScreenWidth() {
+		return screenWidth;
+	}
+
+	protected boolean userIsDestroyed() {
+		return user.isDestroyed();
+	}
+
+	protected Scene getScene(){
+		return scene;
+	}
+
+
 
 
 }

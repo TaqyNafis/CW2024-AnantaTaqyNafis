@@ -1,9 +1,9 @@
 package com.example.demo.controller;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Observable;
-import java.util.Observer;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -13,7 +13,7 @@ import javafx.stage.Screen;
 import javafx.application.Platform;
 import com.example.demo.LevelParent.LevelParentEndless;
 
-public class EndlessController implements Observer {
+public class EndlessController implements PropertyChangeListener  {
 
     private final Stage stage;
     private static final String ENDLESS_CLASS_NAME = "com.example.demo.LevelEndless";
@@ -38,7 +38,7 @@ public class EndlessController implements Observer {
         Class<?> myClass = Class.forName(className);
         Constructor<?> constructor = myClass.getConstructor(double.class, double.class);
         LevelParentEndless myLevel = (LevelParentEndless) constructor.newInstance(stage.getHeight(), stage.getWidth());
-        myLevel.addObserver(this);
+        myLevel.addPropertyChangeListener(this);
         Scene scene = myLevel.initializeScene();
         stage.setScene(scene);
         myLevel.startGame();
@@ -46,9 +46,9 @@ public class EndlessController implements Observer {
     }
 
     @Override
-    public void update(Observable arg0, Object arg1) {
+    public void propertyChange(PropertyChangeEvent evt) {
         try {
-            goToLevel((String) arg1);
+            goToLevel((String) evt.getNewValue());
         } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException
                  | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             Alert alert = new Alert(AlertType.ERROR);

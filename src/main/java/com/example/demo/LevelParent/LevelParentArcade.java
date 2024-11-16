@@ -4,11 +4,11 @@ import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
 
 
-public abstract class LevelParentEndless extends LevelParent {
+public abstract class LevelParentArcade extends LevelParent {
 
-    private static final String ENDLESS_CLASS_NAME = "com.example.demo.LevelEndless";
+    private static final String LEVEL_ONE_CLASS_NAME = "com.example.demo.LevelOne";
 
-    public LevelParentEndless(String backgroundImageName, double screenHeight, double screenWidth, int playerInitialHealth) {
+    public LevelParentArcade(String backgroundImageName, double screenHeight, double screenWidth, int playerInitialHealth) {
         super(backgroundImageName, screenHeight, screenWidth, playerInitialHealth);
 
         Group root = new Group();
@@ -23,7 +23,7 @@ public abstract class LevelParentEndless extends LevelParent {
     private void KeyListeners(){
         this.getScene().setOnKeyPressed(e -> {
             KeyCode kc = e.getCode();
-            if (kc == KeyCode.R) {resetLevel(ENDLESS_CLASS_NAME);}
+            if (kc == KeyCode.R) {resetLevel(LEVEL_ONE_CLASS_NAME);}
 
         });
     }

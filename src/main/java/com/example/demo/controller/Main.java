@@ -16,8 +16,8 @@ public class Main extends Application {
 	@Override
 	public void start(Stage stage) {
 		try {
-			Controller gameController = new Controller(stage);
-			MainMenu.showMainMenu(stage, gameController);
+			ArcadeController gameArcadeController = new ArcadeController(stage);
+			MainMenu.showMainMenu(stage, gameArcadeController);
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, "Error starting MainMenu", e);
 		}

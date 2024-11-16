@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 public class MainMenuController {
 
     private Stage stage;
-    private Controller gameController;
+    private ArcadeController gameArcadeController;
     private EndlessController endlessController;
 
     private static final String HOW_TO_PLAY_FXML = "/fxml/HowToPlay.fxml";
@@ -24,9 +24,9 @@ public class MainMenuController {
 
 
     // Initialize method to set the stage and game controller
-    public void initialize(Stage stage, Controller gameController) {
+    public void initialize(Stage stage, ArcadeController gameArcadeController) {
         this.stage = stage;
-        this.gameController = gameController;
+        this.gameArcadeController = gameArcadeController;
         this.endlessController = new EndlessController(stage);
     }
 
@@ -35,7 +35,7 @@ public class MainMenuController {
         try {
             stage.setWidth(1300);
             stage.setHeight(750);
-            gameController.launchArcadeMode();
+            gameArcadeController.launchArcadeMode();
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error starting Arcade Mode", e);
         }
@@ -61,7 +61,7 @@ public class MainMenuController {
 
             // Initialize HowToPlayController
             HowToPlayController howToPlayController = loader.getController();
-            howToPlayController.initialize(stage, gameController);
+            howToPlayController.initialize(stage, gameArcadeController);
 
             // Set the new scene to the stage
             Scene scene = new Scene(root);
@@ -83,7 +83,7 @@ public class MainMenuController {
 
             // Initialize Control
             ControlController controlController = loader.getController();
-            controlController.initialize(stage, gameController);
+            controlController.initialize(stage, gameArcadeController);
 
             // Set the new scene to the stage
             Scene scene = new Scene(root);

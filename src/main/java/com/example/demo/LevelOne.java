@@ -1,11 +1,11 @@
 package com.example.demo;
 
 import com.example.demo.Actor.ActiveActorDestructible;
-import com.example.demo.LevelParent.LevelParent;
+import com.example.demo.LevelParent.LevelParentArcade;
 import com.example.demo.LevelView.LevelView;
 import com.example.demo.Object.EnemyPlane;
 
-public class LevelOne extends LevelParent {
+public class LevelOne extends LevelParentArcade {
 
 	private static final String BACKGROUND_IMAGE_NAME = "/com/example/demo/images/background1.jpg";
 	private static final String NEXT_LEVEL = "com.example.demo.LevelTwo";

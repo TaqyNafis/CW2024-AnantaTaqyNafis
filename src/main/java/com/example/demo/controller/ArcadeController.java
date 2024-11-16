@@ -11,17 +11,17 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.application.Platform;
-import com.example.demo.LevelParent.LevelParent;
+import com.example.demo.LevelParent.LevelParentArcade;
 
-public class Controller implements PropertyChangeListener {
+public class ArcadeController implements PropertyChangeListener {
 
 	private final Stage stage;
 	private static final String LEVEL_ONE_CLASS_NAME = "com.example.demo.LevelOne";
 
-	public Controller(Stage stage) {
+	public ArcadeController(Stage stage) {
 		this.stage = stage;
 
-		// Add listeners to center the stage on resize
+		// Listener when stage width and height change
 		stage.widthProperty().addListener((obs, oldVal, newVal) -> centerWindow());
 		stage.heightProperty().addListener((obs, oldVal, newVal) -> centerWindow());
 	}
@@ -38,9 +38,8 @@ public class Controller implements PropertyChangeListener {
 
 		Class<?> myClass = Class.forName(className);
 		Constructor<?> constructor = myClass.getConstructor(double.class, double.class);
-		LevelParent myLevel = (LevelParent) constructor.newInstance(stage.getHeight(), stage.getWidth());
+		LevelParentArcade myLevel = (LevelParentArcade) constructor.newInstance(stage.getHeight(), stage.getWidth());
 
-		// Add this controller as a listener to the level
 		myLevel.addPropertyChangeListener(this);
 
 		Scene scene = myLevel.initializeScene();

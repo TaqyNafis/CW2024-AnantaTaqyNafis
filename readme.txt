@@ -45,7 +45,10 @@ NEW JAVA CLASSES
    -Manage the endless mode
 
 8. **LevelParentEndless class**
-   -Mange endless level function 
+   -Mange endless mode function 
+
+9. **LevelParentArcade Class**
+   -Manage Arcade Mode function
 
 MODIFIED FEATURES AND CHANGES
 =======================================
@@ -58,6 +61,7 @@ MODIFIED FEATURES AND CHANGES
 2. **Controller Class**  
    - Added `centerWindow()` function to center the game window when resized, with a listener for size changes.
    - rename 'launchgame' function to 'startArcade'
+   -rename class into ArcadeController and call LevelParentArcade when launching game
 
 3. **ShieldImage Class**  
    - Updated image path for the shield from "shield.jpg" to "shield.png" using `IMAGE_NAME` variable with the `getResource` method.
@@ -80,8 +84,7 @@ MODIFIED FEATURES AND CHANGES
    - Added boolean variables `isSpaceEnabled`, `isPause`, and `isEscEnabled`.  
    - Updated `handleEnemyPenetration()` to decrease kill count when an enemy is destroyed.  
    - Updated `winGame()` and `loseGame()` functions to disable ESC and Space keys on respective screens.  
-   - Added `pauseLevel()` function to pause gameplay and show the pause menu image.  
-   - Added `resetLevel()` function to reset the level to Level 1.  
+   - Added `pauseLevel()` function to pause gameplay and show the pause menu image.    
    - Modified projectile firing to check if Space key is enabled.
    - Made class to not be able to return NULL
    - replace `EventHandler<KeyEvent>()`with Lambda
@@ -110,7 +113,7 @@ MODIFIED FEATURES AND CHANGES
      - Top layer: GUI elements (life counter, game over image, etc.)  
    - Removed `showShield()` and `hideShield()` functions, now handled in `ShieldImage` class.
    -Remove 'addImageToRoot'
-     - Change initiateLevelViewLevel() function to make it shorter but still return same
+   - Change initiateLevelViewLevel() function to make it shorter but still return same
 
 
 9. **UserPlane Class**  
@@ -135,10 +138,51 @@ MODIFIED FEATURES AND CHANGES
     -removed `setDestroyed()` function since it is redundant
     -change 'destroy()' function to call isDestroyed instead of setDestroyed
 
-14.**Other**
-- added fxml folder under resources
-- added fxml file for main menu, how to play menu and control menu
-- change module info so that it can access java logging package; to be used to replace` printStackTrace()` usage as a more robust logging)'
+14.**LevelOne**
+    - Change class to extend to LevelParentArcade instead of LevelParent
+
+15.**LevelTwo**
+    - Change class to extend to LevelParentArcade instead of LevelParent
+
+16.**Other**
+- Added FXML folder under resources
+- Added FXML file for main menu, how to play menu and control menu
+- Change module info so that it can access java logging package; to be used to replace` printStackTrace()` usage as a more robust logging)'
+- Major File Organization:
+	-**Actor Package**
+	  -ActiveActor
+	  -ActiveActorDestructible
+	  -Destructible
+
+	-**Controller Package **
+	  -GameOverImage
+	  -HeartDisplay
+	  -MainMenu
+	  -PauseMenuImage
+	  -ShieldImage
+	  -WinImage
+
+	-**Display Package**
+	  -LevelParent
+	  -LevelParentEndless
+	  -LevelParentArcade
+
+	-**LevelParent Package**
+	  -LevelView
+	  -LevelViewEndless
+	  -LevelViewLevelTwo
+
+	-**Object Package**
+	  -Boss
+	  -EnemyPlane
+	  -FighterPlane
+	  -UserPlane
+
+	-**Projectiles Package**
+	  -BossProjectile
+	  -EnemyProjectile
+	  -Projectile
+	  -UserProjectile
 
 UNEXPECTED PROBLEMS AND SOLUTIONS
 =======================================
@@ -153,7 +197,7 @@ UNEXPECTED PROBLEMS AND SOLUTIONS
    **Solution:** Integrated the boss's shield image into the root node. Updated `updateShield()` to show/remove the shield properly.
 
 4. **Problem:** Memory leak when transitioning from Level 1 to Level 2 if an enemy is destroyed.  
-   **Solution:** Properly clear assets using `clearAsset()` when calling `goToNextLevel()`.
+   **Solution:** properly stop timeline using 'timeline.stop()' and added clearAsset function to clean asset so not too many junk is kept in memory
 
 5. **Problem:** Space bar spawns bullets on Game Over or Win screens.  
    **Solution:** Added `isSpaceEnabled` flag and set to false during Game Over and Win screens.
