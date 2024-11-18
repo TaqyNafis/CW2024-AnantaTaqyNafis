@@ -41,6 +41,9 @@ public class LevelTwo extends LevelParentArcade {
 	}
 
 	@Override
+	protected void updateKillCountCounter() {}
+
+	@Override
 	protected LevelView instantiateLevelView() {
         return new LevelViewLevelTwo(getTopLayer(), PLAYER_INITIAL_HEALTH);
 	}

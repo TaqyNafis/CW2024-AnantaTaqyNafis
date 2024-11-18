@@ -89,7 +89,8 @@ MODIFIED FEATURES AND CHANGES
    - Made class to not be able to return NULL
    - replace `EventHandler<KeyEvent>()`with Lambda
    - replace method refrence for `updateActors` and `RemoveDestroyedActors` with lambda
-   - simplify 'collect(toList())' to be replaced with 'toList()'
+   - simplify `collect(toList())` to be replaced with 'toList()'
+   -  change to `updateScene()` to also call updateKillCountCounter
 
 7. **LevelView Class**  
    - Added bottom, middle, and top layers to root nodes for better asset separation and remove root variable.  
@@ -137,9 +138,11 @@ MODIFIED FEATURES AND CHANGES
 13. **ActiveActorDestructible class**
     -removed `setDestroyed()` function since it is redundant
     -change 'destroy()' function to call isDestroyed instead of setDestroyed
+    - Added 'updateKIllCountCounter' to update the counter every update
 
 14.**LevelOne**
     - Change class to extend to LevelParentArcade instead of LevelParent
+    - Added an overlay that will show amount of kill left to go to next level
 
 15.**LevelTwo**
     - Change class to extend to LevelParentArcade instead of LevelParent
@@ -213,3 +216,6 @@ UNEXPECTED PROBLEMS AND SOLUTIONS
 
 9. **Problem:** Game Over image does not fit the screen.  
    **Solution:** Set Game Over image size to 500x600 for proper fitting.
+
+10.**Problem:**waw
+   

@@ -88,6 +88,8 @@ public abstract class LevelParent {
 
 	protected abstract void spawnEnemyUnits();
 
+	protected abstract void updateKillCountCounter();
+
 	protected abstract LevelView instantiateLevelView();
 
 	public void startGame() {
@@ -175,8 +177,10 @@ public abstract class LevelParent {
 		handlePlaneCollisions();
 		removeAllDestroyedActors();
 		updateKillCount();
+		updateKillCountCounter();
 		updateLevelView();
 		checkIfGameOver();
+
 	}
 
 	private void fireProjectile() {
@@ -334,10 +338,6 @@ public abstract class LevelParent {
 	protected Group getMidLayer() {
 		return midLayer;
 	}
-	/*Not currently used but better to keep it in case it is needed*/
-	protected Group getBottomLayer() {
-		return bottomLayer;
-	}
 
 	protected double getEnemyMaximumYPosition() {
 		return enemyMaximumYPosition;
@@ -354,7 +354,6 @@ public abstract class LevelParent {
 	protected Scene getScene(){
 		return scene;
 	}
-
 
 
 

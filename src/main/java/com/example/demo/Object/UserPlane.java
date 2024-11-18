@@ -16,7 +16,9 @@ public class UserPlane extends FighterPlane {
 	private static final int PROJECTILE_Y_POSITION_OFFSET = 20;
 	private int velocityMultiplier;
 	private int numberOfKills;
-
+	private int INVINCIBILITY_FRAME_MAX=50;
+	private int INVINCIBILITY_FRAME=0;
+	private boolean ACTIVATE_INVINCIBILITY_FRAME = false;
 	public UserPlane(int initialHealth) {
 		super(IMAGE_NAME, IMAGE_HEIGHT, INITIAL_X_POSITION, INITIAL_Y_POSITION, initialHealth);
 		velocityMultiplier = 0;
@@ -36,6 +38,7 @@ public class UserPlane extends FighterPlane {
 	
 	@Override
 	public void updateActor() {
+
 		updatePosition();
 	}
 	

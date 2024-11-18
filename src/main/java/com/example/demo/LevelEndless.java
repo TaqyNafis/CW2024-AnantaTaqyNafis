@@ -2,19 +2,35 @@ package com.example.demo;
 
 import com.example.demo.Actor.ActiveActorDestructible;
 import com.example.demo.LevelParent.LevelParentEndless;
-import com.example.demo.LevelView.LevelView;
 import com.example.demo.LevelView.LevelViewEndless;
 import com.example.demo.Object.EnemyPlane;
-
+import javafx.scene.control.Label;
+import javafx.scene.text.Font;
 public class LevelEndless extends LevelParentEndless {
 
     private static final String BACKGROUND_IMAGE_NAME = "/com/example/demo/images/background1.jpg";
     private static final int TOTAL_ENEMIES = 5;
     private static final double ENEMY_SPAWN_PROBABILITY = .1;
     private static final int PLAYER_INITIAL_HEALTH = 5;
+    private static final int SCORE_Y_POSITION=20;
+    private static final int SCORE_X_POSITION = 1100;
+    private final String KillCountText="Plane Destroyed: ";
+    private final Label killCount = new Label(KillCountText);
+
 
     public LevelEndless(double screenHeight, double screenWidth) {
         super(BACKGROUND_IMAGE_NAME, screenHeight, screenWidth, PLAYER_INITIAL_HEALTH);
+
+        killCount.setFont(new Font("Arial", 18));
+        killCount.setLayoutX(SCORE_X_POSITION);
+        killCount.setLayoutY(SCORE_Y_POSITION);
+
+        getTopLayer().getChildren().add(killCount);
+    }
+
+    @Override
+    protected void updateKillCountCounter(){
+        killCount.setText(KillCountText + getUser().getNumberOfKills());
     }
 
     @Override
@@ -42,7 +58,7 @@ public class LevelEndless extends LevelParentEndless {
     }
 
     @Override
-    protected LevelView instantiateLevelView() {
+    protected LevelViewEndless instantiateLevelView() {
         return new LevelViewEndless(getTopLayer(), PLAYER_INITIAL_HEALTH);
     }
 }
