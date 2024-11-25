@@ -11,14 +11,15 @@ public class LevelOne extends LevelParentArcade {
 
 	private static final String BACKGROUND_IMAGE_NAME = "/com/example/demo/images/background1.jpg";
 	private static final String NEXT_LEVEL = "com.example.demo.LevelTwo";
-	private static final int TOTAL_ENEMIES = 5;
+	private static final int TOTAL_ENEMIES_ON_SCREEN = 5;
 	private static final int KILLS_TO_ADVANCE = 1;
 	private static final double ENEMY_SPAWN_PROBABILITY = .15;
 	private static final int PLAYER_INITIAL_HEALTH = 5;
+	int ENEMIES_SPAWNED= 1;
 
 	private static final int SCORE_Y_POSITION=20;
-	private static final int SCORE_X_POSITION = 1000;
-	private final String KillCountText="Plane Destroyed to Advance: ";
+	private static final int SCORE_X_POSITION = 1100;
+	private final String KillCountText="Planes Left: ";
 	private final Label killCount = new Label(KillCountText);
 
 	public LevelOne(double screenHeight, double screenWidth) {
@@ -51,17 +52,20 @@ public class LevelOne extends LevelParentArcade {
 	@Override
 	protected void spawnEnemyUnits() {
 		int currentNumberOfEnemies = getCurrentNumberOfEnemies();
-		for (int i = 0; i < TOTAL_ENEMIES - currentNumberOfEnemies; i++) {
-			if (Math.random() < ENEMY_SPAWN_PROBABILITY) {
-				double newEnemyInitialYPosition = Math.random() * getEnemyMaximumYPosition();
-				ActiveActorDestructible newEnemy = new EnemyPlane(getScreenWidth(), newEnemyInitialYPosition);
-				addEnemyUnit(newEnemy);
+		if (ENEMIES_SPAWNED <=KILLS_TO_ADVANCE) {
+			for (int i = 0; i < TOTAL_ENEMIES_ON_SCREEN - currentNumberOfEnemies; i++) {
+				if (Math.random() < ENEMY_SPAWN_PROBABILITY) {
+					double newEnemyInitialYPosition = Math.random() * getEnemyMaximumYPosition();
+					ActiveActorDestructible newEnemy = new EnemyPlane(getScreenWidth(), newEnemyInitialYPosition);
+					addEnemyUnit(newEnemy);
+					ENEMIES_SPAWNED++;
+				}
 			}
 		}
 	}
 
 	@Override
-	protected void updateKillCountCounter() {
+	protected void updateText() {
 		int x= getUser().getNumberOfKills();
 		int sum= KILLS_TO_ADVANCE - x;
 		killCount.setText(KillCountText + sum);

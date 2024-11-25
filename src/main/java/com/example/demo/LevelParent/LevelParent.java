@@ -88,7 +88,7 @@ public abstract class LevelParent {
 
 	protected abstract void spawnEnemyUnits();
 
-	protected abstract void updateKillCountCounter();
+	protected abstract void updateText();
 
 	protected abstract LevelView instantiateLevelView();
 
@@ -177,7 +177,7 @@ public abstract class LevelParent {
 		handlePlaneCollisions();
 		removeAllDestroyedActors();
 		updateKillCount();
-		updateKillCountCounter();
+		updateText();
 		updateLevelView();
 		checkIfGameOver();
 

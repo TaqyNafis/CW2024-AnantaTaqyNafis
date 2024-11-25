@@ -16,9 +16,9 @@ public class UserPlane extends FighterPlane {
 	private static final int PROJECTILE_Y_POSITION_OFFSET = 20;
 	private int velocityMultiplier;
 	private int numberOfKills;
-	private int INVINCIBILITY_FRAME_MAX=50;
+	private static final int INVINCIBILITY_FRAME_MAX=20;
 	private int INVINCIBILITY_FRAME=0;
-	private boolean ACTIVATE_INVINCIBILITY_FRAME = false;
+	private boolean HAS_INVINCIBILITY_FRAME = false;
 	public UserPlane(int initialHealth) {
 		super(IMAGE_NAME, IMAGE_HEIGHT, INITIAL_X_POSITION, INITIAL_Y_POSITION, initialHealth);
 		velocityMultiplier = 0;
@@ -35,11 +35,31 @@ public class UserPlane extends FighterPlane {
 			}
 		}
 	}
-	
+
+	@Override
+	public void takeDamage() {
+		if (!HAS_INVINCIBILITY_FRAME) {
+			super.takeDamage();
+			HAS_INVINCIBILITY_FRAME = true;
+		}
+	}
+	public void updateInvincibilityFrame() {
+		if(HAS_INVINCIBILITY_FRAME) {
+			INVINCIBILITY_FRAME++;
+		}
+        super.setVisible(INVINCIBILITY_FRAME % 5 == 0);
+
+		if(INVINCIBILITY_FRAME==INVINCIBILITY_FRAME_MAX) {
+			HAS_INVINCIBILITY_FRAME = false;
+			INVINCIBILITY_FRAME = 0;
+		}
+	}
+
+
 	@Override
 	public void updateActor() {
-
 		updatePosition();
+		updateInvincibilityFrame();
 	}
 	
 	@Override

@@ -16,7 +16,7 @@ public class Boss extends FighterPlane {
 	private static final double BOSS_SHIELD_PROBABILITY = 0.002;
 	private static final int IMAGE_HEIGHT = 50;
 	private static final int VERTICAL_VELOCITY = 8;
-	private static final int HEALTH = 1;
+	private static final int HEALTH = 2;
 	private static final int MOVE_FREQUENCY_PER_CYCLE = 5;
 	private static final int ZERO = 0;
 	private static final int MAX_FRAMES_WITH_SAME_MOVE = 10;
@@ -30,12 +30,16 @@ public class Boss extends FighterPlane {
 	private int framesWithShieldActivated;
 	private final ShieldImage shieldImage;
 
+	private static final int INVINCIBILITY_FRAME_MAX=30;
+	private int INVINCIBILITY_FRAME=0;
+	private boolean HAS_INVINCIBILITY_FRAME = false;
+
 	public Boss() {
 		super(IMAGE_NAME, IMAGE_HEIGHT, INITIAL_X_POSITION, INITIAL_Y_POSITION, HEALTH);
 		movePattern = new ArrayList<>();
 		consecutiveMovesInSameDirection = 0;
 		indexOfCurrentMove = 0;
-		framesWithShieldActivated = 0;
+			framesWithShieldActivated = 0;
 		isShielded = false;
 		shieldImage = new ShieldImage(INITIAL_X_POSITION-120, INITIAL_Y_POSITION);
 		initializeMovePattern();
@@ -56,6 +60,7 @@ public class Boss extends FighterPlane {
 	public void updateActor() {
 		updatePosition();
 		updateShield();
+		updateInvincibilityFrame();
 	}
 
 	@Override
@@ -66,7 +71,22 @@ public class Boss extends FighterPlane {
 	@Override
 	public void takeDamage() {
 		if (!isShielded) {
-			super.takeDamage();
+			if (!HAS_INVINCIBILITY_FRAME) {
+				super.takeDamage();
+				HAS_INVINCIBILITY_FRAME = true;
+			}
+		}
+	}
+
+	public void updateInvincibilityFrame() {
+		if(HAS_INVINCIBILITY_FRAME) {
+			INVINCIBILITY_FRAME++;
+		}
+        super.setVisible(INVINCIBILITY_FRAME % 4 == 0);
+
+		if(INVINCIBILITY_FRAME==INVINCIBILITY_FRAME_MAX) {
+			HAS_INVINCIBILITY_FRAME = false;
+			INVINCIBILITY_FRAME = 0;
 		}
 	}
 
@@ -116,7 +136,10 @@ public class Boss extends FighterPlane {
 	}
 
 	private boolean shieldShouldBeActivated() {
-		return Math.random() < BOSS_SHIELD_PROBABILITY;
+		if(!isShielded) {
+			return Math.random() < BOSS_SHIELD_PROBABILITY;
+		}
+		return false;
 	}
 
 	private boolean shieldExhausted() {
@@ -137,5 +160,4 @@ public class Boss extends FighterPlane {
 	public ShieldImage getShieldImage() {
 		return shieldImage;
 	}
-
 }

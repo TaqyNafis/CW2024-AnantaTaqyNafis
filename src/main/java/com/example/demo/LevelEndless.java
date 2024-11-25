@@ -9,8 +9,8 @@ import javafx.scene.text.Font;
 public class LevelEndless extends LevelParentEndless {
 
     private static final String BACKGROUND_IMAGE_NAME = "/com/example/demo/images/background1.jpg";
-    private static final int TOTAL_ENEMIES = 5;
-    private static final double ENEMY_SPAWN_PROBABILITY = .1;
+    private static final int TOTAL_ENEMIES = 8;
+    private static final double ENEMY_SPAWN_PROBABILITY = .05;
     private static final int PLAYER_INITIAL_HEALTH = 5;
     private static final int SCORE_Y_POSITION=20;
     private static final int SCORE_X_POSITION = 1100;
@@ -29,7 +29,7 @@ public class LevelEndless extends LevelParentEndless {
     }
 
     @Override
-    protected void updateKillCountCounter(){
+    protected void updateText(){
         killCount.setText(KillCountText + getUser().getNumberOfKills());
     }
 

@@ -58,7 +58,6 @@ public class LevelView {
 	
 	public void showHeartDisplay() {
 		topLayer.getChildren().add(heartDisplay.getContainer());
-		heartDisplay.getContainer().toBack();
 	}
 
 	public void showWinImage() {

@@ -19,6 +19,7 @@ PLANNED FEATURES
 =======================================
 - Change to the boss battle system
 - add invincibility frame when player take damage
+-
 - sound maybe?
 
 NEW JAVA CLASSES
@@ -121,12 +122,14 @@ MODIFIED FEATURES AND CHANGES
    - Updated upper and lower bounds for the user plane's position.  
    - Adjusted image height.  
    - Added `decrementKillCount()` function.
+   - Added an invincibilty frame function, whenever the userplane is hit it have a moment where it is flashing and in that mode it will not be able to take damage
 
 10. **Boss Class**  
     - Updated upper and lower bounds for boss plane's position.  
     - Adjusted image height.  
     - Modified `activateShield()` and `deactivateShield()` functions to properly manage shield.
     - Added 'getshield()' function
+     - Added an invincibilty frame function, whenever the boss is hit it have a moment where it is flashing and in that mode it will not be able to take damage
 
 11. **HeartDisplay**
     - Change "ContainerXposition","ContainerYposition" and numberOfHeartsToDisplay  to be final
@@ -138,14 +141,17 @@ MODIFIED FEATURES AND CHANGES
 13. **ActiveActorDestructible class**
     -removed `setDestroyed()` function since it is redundant
     -change 'destroy()' function to call isDestroyed instead of setDestroyed
-    - Added 'updateKIllCountCounter' to update the counter every update
+    - Added 'updateText' to update the text every update
 
 14.**LevelOne**
     - Change class to extend to LevelParentArcade instead of LevelParent
-    - Added an overlay that will show amount of kill left to go to next level
+    - Added an overlay that will show amount of enemies left to be destroyed
+    - Change how enemy will spawned, now it will only spawned the necessary enemies to go to next level
+    - 
 
 15.**LevelTwo**
     - Change class to extend to LevelParentArcade instead of LevelParent
+    - Add HP display for boss
 
 16.**Other**
 - Added FXML folder under resources
