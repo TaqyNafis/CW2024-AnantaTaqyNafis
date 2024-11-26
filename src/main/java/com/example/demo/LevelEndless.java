@@ -7,7 +7,6 @@ import com.example.demo.object.EnemyPlane;
 import javafx.scene.control.Label;
 import javafx.scene.text.Font;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.Random;
 
 public class LevelEndless extends LevelParentEndless {
 
@@ -19,8 +18,7 @@ public class LevelEndless extends LevelParentEndless {
     private static final int SCORE_X_POSITION = 1100;
     private static final String KILLCOUNT_TEXT="Plane Destroyed: ";
     private final Label killCount = new Label(KILLCOUNT_TEXT);
-    private static final Random randomForPosition = new Random();
-    private static final ThreadLocalRandom randomForSpawn = ThreadLocalRandom.current();
+    private static final ThreadLocalRandom randomForPosition = ThreadLocalRandom.current();
 
 
     public LevelEndless(double screenHeight, double screenWidth) {
@@ -54,7 +52,7 @@ public class LevelEndless extends LevelParentEndless {
     protected void spawnEnemyUnits() {
         int currentNumberOfEnemies = getCurrentNumberOfEnemies();
         while (currentNumberOfEnemies< TOTAL_ENEMIES_ON_SCREEN) {
-            if (randomForSpawn.nextDouble() < ENEMY_SPAWN_PROBABILITY) {
+            if (ThreadLocalRandom.current().nextDouble() < ENEMY_SPAWN_PROBABILITY) {
                 double newEnemyInitialYPosition = randomForPosition.nextDouble() * getEnemyMaximumYPosition();
                 ActiveActorDestructible newEnemy = new EnemyPlane(getScreenWidth(), newEnemyInitialYPosition);
                 addEnemyUnit(newEnemy);
