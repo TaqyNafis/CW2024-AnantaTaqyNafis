@@ -1,8 +1,8 @@
 package com.example.demo;
 
-import com.example.demo.LevelParent.LevelParentArcade;
-import com.example.demo.LevelView.LevelView;
-import com.example.demo.LevelView.LevelViewLevelTwo;
+import com.example.demo.levelparent.LevelParentArcade;
+import com.example.demo.levelview.LevelView;
+import com.example.demo.levelview.LevelViewLevelTwo;
 import com.example.demo.Object.Boss;
 import javafx.scene.control.Label;
 import javafx.scene.text.Font;

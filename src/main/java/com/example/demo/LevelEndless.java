@@ -1,8 +1,8 @@
 package com.example.demo;
 
-import com.example.demo.Actor.ActiveActorDestructible;
-import com.example.demo.LevelParent.LevelParentEndless;
-import com.example.demo.LevelView.LevelViewEndless;
+import com.example.demo.actor.ActiveActorDestructible;
+import com.example.demo.levelparent.LevelParentEndless;
+import com.example.demo.levelview.LevelViewEndless;
 import com.example.demo.Object.EnemyPlane;
 import javafx.scene.control.Label;
 import javafx.scene.text.Font;

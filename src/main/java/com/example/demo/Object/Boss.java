@@ -1,8 +1,8 @@
 package com.example.demo.Object;
 
-import com.example.demo.Actor.ActiveActorDestructible;
-import com.example.demo.Projectiles.BossProjectile;
-import com.example.demo.Display.ShieldImage;
+import com.example.demo.actor.ActiveActorDestructible;
+import com.example.demo.projectile.BossProjectile;
+import com.example.demo.display.ShieldImage;
 
 import java.util.*;
 

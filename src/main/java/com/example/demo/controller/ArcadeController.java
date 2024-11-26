@@ -11,7 +11,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.application.Platform;
-import com.example.demo.LevelParent.LevelParentArcade;
+import com.example.demo.levelparent.LevelParentArcade;
 
 public class ArcadeController implements PropertyChangeListener {
 

@@ -2409,7 +2409,7 @@ Event: 22.594 Thread 0x00000228960e87c0 3530       3       javafx.event.Event::<
 Event: 22.595 Thread 0x00000228960e87c0 nmethod 3530 0x000002288000a488 code [0x000002288000a5e0, 0x000002288000aa68]
 Event: 22.984 Thread 0x00000228960e87c0 3531   !   3       com.sun.scenario.animation.shared.InfiniteClipEnvelope::timePulse (315 bytes)
 Event: 22.984 Thread 0x00000228960e87c0 nmethod 3531 0x00000228800cbd08 code [0x00000228800cbf20, 0x00000228800cca18]
-Event: 23.044 Thread 0x00000228960e87c0 3532       3       com.example.demo.Display.ShieldImage::showShield (6 bytes)
+Event: 23.044 Thread 0x00000228960e87c0 3532       3       com.example.demo.display.ShieldImage::showShield (6 bytes)
 Event: 23.044 Thread 0x00000228960e87c0 nmethod 3532 0x00000228802a3b08 code [0x00000228802a3c40, 0x00000228802a3eb0]
 
 GC Heap History (20 events):

@@ -1,11 +1,11 @@
-package com.example.demo.LevelParent;
+package com.example.demo.levelparent;
 
 import java.io.IOException;
 import java.util.*;
 
-import com.example.demo.Actor.ActiveActorDestructible;
-import com.example.demo.LevelView.LevelView;
-import com.example.demo.Display.MainMenu;
+import com.example.demo.actor.ActiveActorDestructible;
+import com.example.demo.levelview.LevelView;
+import com.example.demo.display.MainMenu;
 import com.example.demo.Object.FighterPlane;
 import com.example.demo.Object.UserPlane;
 import com.example.demo.controller.ArcadeController;

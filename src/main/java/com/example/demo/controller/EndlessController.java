@@ -11,7 +11,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import javafx.stage.Screen;
 import javafx.application.Platform;
-import com.example.demo.LevelParent.LevelParentEndless;
+import com.example.demo.levelparent.LevelParentEndless;
 
 public class EndlessController implements PropertyChangeListener  {
 

@@ -1,4 +1,4 @@
-package com.example.demo.LevelParent;
+package com.example.demo.levelparent;
 
 import javafx.scene.Group;
 import javafx.scene.input.KeyCode;

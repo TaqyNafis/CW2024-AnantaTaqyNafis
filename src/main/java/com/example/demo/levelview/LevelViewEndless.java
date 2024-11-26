@@ -1,4 +1,4 @@
-package com.example.demo.LevelView;
+package com.example.demo.levelview;
 
 import javafx.scene.Group;
 
