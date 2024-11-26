@@ -14,6 +14,10 @@ public class MainMenu {
     private static final String TITLE = "Sky Battle";
     private static final String MAIN_MENU_FXML = "/fxml/MainMenu.fxml";
 
+    private MainMenu() {
+        throw new UnsupportedOperationException("MainMenu is a utility class and cannot be instantiated.");
+    }
+
     public static void showMainMenu(Stage stage, ArcadeController gameArcadeController) throws IOException {
         FXMLLoader loader = new FXMLLoader(MainMenu.class.getResource(MAIN_MENU_FXML));
         Parent root = loader.load();

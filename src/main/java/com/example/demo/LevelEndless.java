@@ -14,7 +14,7 @@ public class LevelEndless extends LevelParentEndless {
     private static final int PLAYER_INITIAL_HEALTH = 5;
     private static final int SCORE_Y_POSITION=20;
     private static final int SCORE_X_POSITION = 1100;
-    private final String KillCountText="Plane Destroyed: ";
+    private final static String KillCountText="Plane Destroyed: ";
     private final Label killCount = new Label(KillCountText);
 
 

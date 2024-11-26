@@ -8,7 +8,7 @@ public abstract class LevelParentArcade extends LevelParent {
 
     private static final String LEVEL_ONE_CLASS_NAME = "com.example.demo.LevelOne";
 
-    public LevelParentArcade(String backgroundImageName, double screenHeight, double screenWidth, int playerInitialHealth) {
+    protected LevelParentArcade(String backgroundImageName, double screenHeight, double screenWidth, int playerInitialHealth) {
         super(backgroundImageName, screenHeight, screenWidth, playerInitialHealth);
 
         Group root = new Group();
@@ -16,11 +16,11 @@ public abstract class LevelParentArcade extends LevelParent {
         Group midLayer = new Group();
         Group bottomLayer = new Group();
         root.getChildren().addAll(bottomLayer, midLayer, topLayer);
-        KeyListeners();
+        keyListeners();
 
     }
 
-    private void KeyListeners(){
+    private void keyListeners(){
         this.getScene().setOnKeyPressed(e -> {
             KeyCode kc = e.getCode();
             if (kc == KeyCode.R) {resetLevel(LEVEL_ONE_CLASS_NAME);}

@@ -55,7 +55,7 @@ public abstract class LevelParent {
 
 	private static final Logger logger = Logger.getLogger(LevelParent.class.getName());
 
-	public LevelParent(String backgroundImageName, double screenHeight, double screenWidth, int playerInitialHealth) {
+	protected LevelParent(String backgroundImageName, double screenHeight, double screenWidth, int playerInitialHealth) {
 
         Group root = new Group();
 		this.topLayer = new Group();

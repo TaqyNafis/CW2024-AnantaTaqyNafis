@@ -15,7 +15,7 @@ public class LevelTwo extends LevelParentArcade {
 
 	private static final int SCORE_Y_POSITION=20;
 	private static final int SCORE_X_POSITION = 1120;
-	private final String BossHealthText="Boss HP: ";
+	private final static String  BossHealthText="Boss HP: ";
 	private final Label BossHealth = new Label(BossHealthText);
 
 

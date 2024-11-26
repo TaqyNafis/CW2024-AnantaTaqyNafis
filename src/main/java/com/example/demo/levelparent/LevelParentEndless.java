@@ -8,7 +8,7 @@ public abstract class LevelParentEndless extends LevelParent {
 
     private static final String ENDLESS_CLASS_NAME = "com.example.demo.LevelEndless";
 
-    public LevelParentEndless(String backgroundImageName, double screenHeight, double screenWidth, int playerInitialHealth) {
+    protected LevelParentEndless(String backgroundImageName, double screenHeight, double screenWidth, int playerInitialHealth) {
         super(backgroundImageName, screenHeight, screenWidth, playerInitialHealth);
 
         Group root = new Group();
@@ -16,11 +16,11 @@ public abstract class LevelParentEndless extends LevelParent {
         Group midLayer = new Group();
         Group bottomLayer = new Group();
         root.getChildren().addAll(bottomLayer, midLayer, topLayer);
-        KeyListeners();
+        keyListeners();
 
     }
 
-    private void KeyListeners(){
+    private void keyListeners(){
         this.getScene().setOnKeyPressed(e -> {
             KeyCode kc = e.getCode();
             if (kc == KeyCode.R) {resetLevel(ENDLESS_CLASS_NAME);}

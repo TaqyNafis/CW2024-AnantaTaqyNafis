@@ -16,9 +16,10 @@ public class UserPlane extends FighterPlane {
 	private static final int PROJECTILE_Y_POSITION_OFFSET = 20;
 	private int velocityMultiplier;
 	private int numberOfKills;
-	private static final int INVINCIBILITY_FRAME_MAX=20;
-	private int INVINCIBILITY_FRAME=0;
-	private boolean HAS_INVINCIBILITY_FRAME = false;
+	private static final int invincibilityFrameMax=20;
+	private int invincibilityFrame=0;
+	private boolean hasInvincibilityMax = false;
+
 	public UserPlane(int initialHealth) {
 		super(IMAGE_NAME, IMAGE_HEIGHT, INITIAL_X_POSITION, INITIAL_Y_POSITION, initialHealth);
 		velocityMultiplier = 0;
@@ -38,20 +39,20 @@ public class UserPlane extends FighterPlane {
 
 	@Override
 	public void takeDamage() {
-		if (!HAS_INVINCIBILITY_FRAME) {
+		if (!hasInvincibilityMax ) {
 			super.takeDamage();
-			HAS_INVINCIBILITY_FRAME = true;
+			hasInvincibilityMax  = true;
 		}
 	}
 	public void updateInvincibilityFrame() {
-		if(HAS_INVINCIBILITY_FRAME) {
-			INVINCIBILITY_FRAME++;
+		if(hasInvincibilityMax ) {
+			invincibilityFrame++;
 		}
-        super.setVisible(INVINCIBILITY_FRAME % 5 == 0);
+        super.setVisible(invincibilityFrame % 5 == 0);
 
-		if(INVINCIBILITY_FRAME==INVINCIBILITY_FRAME_MAX) {
-			HAS_INVINCIBILITY_FRAME = false;
-			INVINCIBILITY_FRAME = 0;
+		if(invincibilityFrame==invincibilityFrameMax) {
+			hasInvincibilityMax  = false;
+			invincibilityFrame = 0;
 		}
 	}
 
