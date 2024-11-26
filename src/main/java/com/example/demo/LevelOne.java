@@ -19,7 +19,7 @@ public class LevelOne extends LevelParentArcade {
 
 	private static final int SCORE_Y_POSITION=20;
 	private static final int SCORE_X_POSITION = 1100;
-	private final static String KILLCOUNT_TEXT="Planes Left: ";
+	private static final String KILLCOUNT_TEXT="Planes Left: ";
 	private final Label killCount = new Label(KILLCOUNT_TEXT);
 
 	public LevelOne(double screenHeight, double screenWidth) {

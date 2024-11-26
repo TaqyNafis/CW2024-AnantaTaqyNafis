@@ -16,18 +16,18 @@ public class LevelTwo extends LevelParentArcade {
 	private static final int SCORE_Y_POSITION=20;
 	private static final int SCORE_X_POSITION = 1120;
 	private static final String  BOSSHEALTH_TEXT="Boss HP: ";
-	private final Label BossHealth = new Label(BOSSHEALTH_TEXT);
+	private final Label bossHealth = new Label(BOSSHEALTH_TEXT);
 
 
     public LevelTwo(double screenHeight, double screenWidth) {
 		super(BACKGROUND_IMAGE_NAME, screenHeight, screenWidth, PLAYER_INITIAL_HEALTH);
 		boss = new Boss();
 
-		BossHealth.setFont(new Font("Arial", 18));
-		BossHealth.setLayoutX(SCORE_X_POSITION);
-		BossHealth.setLayoutY(SCORE_Y_POSITION);
+		bossHealth.setFont(new Font("Arial", 18));
+		bossHealth.setLayoutX(SCORE_X_POSITION);
+		bossHealth.setLayoutY(SCORE_Y_POSITION);
 
-		getTopLayer().getChildren().add(BossHealth);
+		getTopLayer().getChildren().add(bossHealth);
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class LevelTwo extends LevelParentArcade {
 
 	@Override
 	protected void updateText() {
-		BossHealth.setText(BOSSHEALTH_TEXT + boss.getHealth());
+		bossHealth.setText(BOSSHEALTH_TEXT + boss.getHealth());
 	}
 
 	@Override
