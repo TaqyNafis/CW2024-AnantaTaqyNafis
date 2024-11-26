@@ -7,7 +7,6 @@ import com.example.demo.object.EnemyPlane;
 import javafx.scene.control.Label;
 import javafx.scene.text.Font;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.Random;
 
 public class LevelOne extends LevelParentArcade {
 
