@@ -3,7 +3,7 @@ package com.example.demo;
 import com.example.demo.actor.ActiveActorDestructible;
 import com.example.demo.levelparent.LevelParentEndless;
 import com.example.demo.levelview.LevelViewEndless;
-import com.example.demo.Object.EnemyPlane;
+import com.example.demo.object.EnemyPlane;
 import javafx.scene.control.Label;
 import javafx.scene.text.Font;
 public class LevelEndless extends LevelParentEndless {
@@ -14,8 +14,8 @@ public class LevelEndless extends LevelParentEndless {
     private static final int PLAYER_INITIAL_HEALTH = 5;
     private static final int SCORE_Y_POSITION=20;
     private static final int SCORE_X_POSITION = 1100;
-    private final static String KillCountText="Plane Destroyed: ";
-    private final Label killCount = new Label(KillCountText);
+    private static final String KILLCOUNT_TEXT="Plane Destroyed: ";
+    private final Label killCount = new Label(KILLCOUNT_TEXT);
 
 
     public LevelEndless(double screenHeight, double screenWidth) {
@@ -30,7 +30,7 @@ public class LevelEndless extends LevelParentEndless {
 
     @Override
     protected void updateText(){
-        killCount.setText(KillCountText + getUser().getNumberOfKills());
+        killCount.setText(KILLCOUNT_TEXT + getUser().getNumberOfKills());
     }
 
     @Override

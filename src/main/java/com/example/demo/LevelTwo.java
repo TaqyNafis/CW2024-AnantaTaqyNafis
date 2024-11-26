@@ -3,7 +3,7 @@ package com.example.demo;
 import com.example.demo.levelparent.LevelParentArcade;
 import com.example.demo.levelview.LevelView;
 import com.example.demo.levelview.LevelViewLevelTwo;
-import com.example.demo.Object.Boss;
+import com.example.demo.object.Boss;
 import javafx.scene.control.Label;
 import javafx.scene.text.Font;
 
@@ -15,8 +15,8 @@ public class LevelTwo extends LevelParentArcade {
 
 	private static final int SCORE_Y_POSITION=20;
 	private static final int SCORE_X_POSITION = 1120;
-	private final static String  BossHealthText="Boss HP: ";
-	private final Label BossHealth = new Label(BossHealthText);
+	private static final String  BOSSHEALTH_TEXT="Boss HP: ";
+	private final Label BossHealth = new Label(BOSSHEALTH_TEXT);
 
 
     public LevelTwo(double screenHeight, double screenWidth) {
@@ -55,7 +55,7 @@ public class LevelTwo extends LevelParentArcade {
 
 	@Override
 	protected void updateText() {
-		BossHealth.setText(BossHealthText + boss.getHealth());
+		BossHealth.setText(BOSSHEALTH_TEXT + boss.getHealth());
 	}
 
 	@Override

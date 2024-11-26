@@ -1,4 +1,4 @@
-package com.example.demo.Object;
+package com.example.demo.object;
 
 import com.example.demo.actor.ActiveActorDestructible;
 import com.example.demo.projectile.BossProjectile;
@@ -30,9 +30,9 @@ public class Boss extends FighterPlane {
 	private int framesWithShieldActivated;
 	private final ShieldImage shieldImage;
 
-	private static final int INVINCIBILITY_FRAME_MAX=30;
-	private int INVINCIBILITY_FRAME=0;
-	private boolean HAS_INVINCIBILITY_FRAME = false;
+	private static final int MAX_INVINCIBILITY_FRAME=30;
+	private int invincibilityFrame=0;
+	private boolean hasInvincibility = false;
 
 	public Boss() {
 		super(IMAGE_NAME, IMAGE_HEIGHT, INITIAL_X_POSITION, INITIAL_Y_POSITION, HEALTH);
@@ -70,23 +70,21 @@ public class Boss extends FighterPlane {
 	
 	@Override
 	public void takeDamage() {
-		if (!isShielded) {
-			if (!HAS_INVINCIBILITY_FRAME) {
-				super.takeDamage();
-				HAS_INVINCIBILITY_FRAME = true;
-			}
+		if (!isShielded && !hasInvincibility) {
+			super.takeDamage();
+			hasInvincibility = true;
 		}
 	}
 
 	public void updateInvincibilityFrame() {
-		if(HAS_INVINCIBILITY_FRAME) {
-			INVINCIBILITY_FRAME++;
+		if(hasInvincibility) {
+			invincibilityFrame++;
 		}
-        super.setVisible(INVINCIBILITY_FRAME % 4 == 0);
+        super.setVisible(invincibilityFrame % 4 == 0);
 
-		if(INVINCIBILITY_FRAME==INVINCIBILITY_FRAME_MAX) {
-			HAS_INVINCIBILITY_FRAME = false;
-			INVINCIBILITY_FRAME = 0;
+		if(invincibilityFrame==MAX_INVINCIBILITY_FRAME) {
+			hasInvincibility = false;
+			invincibilityFrame = 0;
 		}
 	}
 

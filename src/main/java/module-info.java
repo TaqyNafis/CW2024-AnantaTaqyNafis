@@ -10,8 +10,8 @@ module com.example.demo {
     exports com.example.demo;
     exports com.example.demo.actor;
     opens com.example.demo.actor to javafx.fxml;
-    exports com.example.demo.Object;
-    opens com.example.demo.Object to javafx.fxml;
+    exports com.example.demo.object;
+    opens com.example.demo.object to javafx.fxml;
     exports com.example.demo.projectile;
     opens com.example.demo.projectile to javafx.fxml;
     exports com.example.demo.display;

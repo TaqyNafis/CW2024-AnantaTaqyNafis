@@ -1,4 +1,4 @@
-package com.example.demo.Object;
+package com.example.demo.object;
 
 import com.example.demo.actor.ActiveActorDestructible;
 

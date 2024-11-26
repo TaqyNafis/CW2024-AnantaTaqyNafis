@@ -1,4 +1,4 @@
-package com.example.demo.Object;
+package com.example.demo.object;
 
 import com.example.demo.actor.ActiveActorDestructible;
 import com.example.demo.projectile.UserProjectile;
@@ -16,9 +16,9 @@ public class UserPlane extends FighterPlane {
 	private static final int PROJECTILE_Y_POSITION_OFFSET = 20;
 	private int velocityMultiplier;
 	private int numberOfKills;
-	private static final int invincibilityFrameMax=20;
+	private static final int MAX_INVINCIBILITY_FRAME=20;
 	private int invincibilityFrame=0;
-	private boolean hasInvincibilityMax = false;
+	private boolean hasInvincibility = false;
 
 	public UserPlane(int initialHealth) {
 		super(IMAGE_NAME, IMAGE_HEIGHT, INITIAL_X_POSITION, INITIAL_Y_POSITION, initialHealth);
@@ -39,19 +39,19 @@ public class UserPlane extends FighterPlane {
 
 	@Override
 	public void takeDamage() {
-		if (!hasInvincibilityMax ) {
+		if (!hasInvincibility ) {
 			super.takeDamage();
-			hasInvincibilityMax  = true;
+			hasInvincibility  = true;
 		}
 	}
 	public void updateInvincibilityFrame() {
-		if(hasInvincibilityMax ) {
+		if(hasInvincibility ) {
 			invincibilityFrame++;
 		}
         super.setVisible(invincibilityFrame % 5 == 0);
 
-		if(invincibilityFrame==invincibilityFrameMax) {
-			hasInvincibilityMax  = false;
+		if(invincibilityFrame==MAX_INVINCIBILITY_FRAME) {
+			hasInvincibility  = false;
 			invincibilityFrame = 0;
 		}
 	}
