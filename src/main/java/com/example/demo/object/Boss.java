@@ -3,6 +3,7 @@ package com.example.demo.object;
 import com.example.demo.actor.ActiveActorDestructible;
 import com.example.demo.projectile.BossProjectile;
 import com.example.demo.display.ShieldImage;
+import java.util.concurrent.ThreadLocalRandom;
 
 import java.util.*;
 
@@ -126,7 +127,7 @@ public class Boss extends FighterPlane {
 	}
 
 	private boolean bossFiresInCurrentFrame() {
-		return Math.random() < BOSS_FIRE_RATE;
+		return ThreadLocalRandom.current().nextDouble() < BOSS_FIRE_RATE;
 	}
 
 	private double getProjectileInitialPosition() {
@@ -135,7 +136,7 @@ public class Boss extends FighterPlane {
 
 	private boolean shieldShouldBeActivated() {
 		if(!isShielded) {
-			return Math.random() < BOSS_SHIELD_PROBABILITY;
+			return ThreadLocalRandom.current().nextDouble() < BOSS_SHIELD_PROBABILITY;
 		}
 		return false;
 	}

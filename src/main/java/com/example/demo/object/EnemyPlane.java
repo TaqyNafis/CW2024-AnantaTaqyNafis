@@ -3,6 +3,8 @@ package com.example.demo.object;
 import com.example.demo.actor.ActiveActorDestructible;
 import com.example.demo.projectile.EnemyProjectile;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public class EnemyPlane extends FighterPlane {
 
 	private static final String IMAGE_NAME = "enemyplane.png";
@@ -24,7 +26,7 @@ public class EnemyPlane extends FighterPlane {
 
 	@Override
 	public ActiveActorDestructible fireProjectile() {
-		if (Math.random() < FIRE_RATE) {
+		if (ThreadLocalRandom.current().nextDouble() < FIRE_RATE) {
 			double projectileXPosition = getProjectileXPosition(PROJECTILE_X_POSITION_OFFSET);
 			double projectileYPostion = getProjectileYPosition(PROJECTILE_Y_POSITION_OFFSET);
 			return new EnemyProjectile(projectileXPosition, projectileYPostion);
