@@ -143,7 +143,7 @@ public abstract class LevelParent {
 
 	public void clearAsset() {
 		timeline.stop();
-		timeline.getKeyFrames().clear();  // Clear any existing keyframes
+		timeline.getKeyFrames().clear();
 
 		removeAssetsFromScene(friendlyUnits);
 		removeAssetsFromScene(enemyUnits);
@@ -155,7 +155,10 @@ public abstract class LevelParent {
 		userProjectiles.clear();
 		enemyProjectiles.clear();
 
-		System.gc();
+		// Clear all layers
+		midLayer.getChildren().clear();
+		bottomLayer.getChildren().clear();
+		topLayer.getChildren().clear();
 	}
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
 		pcs.addPropertyChangeListener(listener);

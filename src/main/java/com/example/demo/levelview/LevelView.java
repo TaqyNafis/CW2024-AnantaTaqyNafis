@@ -7,9 +7,9 @@ import com.example.demo.display.WinImage;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Screen;
-import javafx.scene.text.Text;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.stage.Screen;
 
 public class LevelView {
 	
@@ -30,13 +30,13 @@ public class LevelView {
 	
 	public LevelView(Group root, int heartsToDisplay) {
 		this.topLayer = new Group();
-        Group midLayer = new Group();
-        Group bottomLayer = new Group();
+		Group midLayer = new Group();
+		Group bottomLayer = new Group();
 
 		root.getChildren().addAll(bottomLayer, midLayer, topLayer);
 
 		this.heartDisplay = new HeartDisplay(HEART_DISPLAY_X_POSITION, HEART_DISPLAY_Y_POSITION, heartsToDisplay);
-		this.winImage = new WinImage(IMAGE_X_POSITION, IMAGE_Y_POSITION+35.00);
+		this.winImage = new WinImage(IMAGE_X_POSITION, IMAGE_Y_POSITION + 35.00);
 		this.gameOverImage = new GameOverImage(IMAGE_X_POSITION, IMAGE_Y_POSITION);
 		this.pauseMenuImage = new PauseMenuImage(IMAGE_X_POSITION, IMAGE_Y_POSITION);
 		this.darkOverlay = new Rectangle(SCREEN_WIDTH, SCREEN_HEIGHT, Color.rgb(0, 0, 0, 0.6));
@@ -45,16 +45,18 @@ public class LevelView {
 		topLayer.getChildren().add(pauseMenuImage);
 		darkOverlay.setVisible(false);
 
-        Text controlInformation = new Text("[ESC] to pause\t[R]to restart to Start\t\t[ENTER]to go back to main menu");
+		Text controlInformation = new Text("[ESC] to pause\t[R]to restart to Start\t\t[ENTER]to go back to main menu");
 		controlInformation.setFont(new Font("Arial", 18));
 		controlInformation.setFill(Color.BLACK);
 		controlInformation.setX(600);
 		controlInformation.setY(700);
 
 		// Add controlInformation to topLayer for visibility
-		topLayer.getChildren().add(controlInformation);
-
+		if (!topLayer.getChildren().contains(controlInformation)) {
+			topLayer.getChildren().add(controlInformation);
+		}
 	}
+
 	
 	public void showHeartDisplay() {
 		topLayer.getChildren().add(heartDisplay.getContainer());
@@ -84,5 +86,6 @@ public class LevelView {
 		darkOverlay.setVisible(false);
 		pauseMenuImage.hidePauseMenu();
 	}
+
 
 }

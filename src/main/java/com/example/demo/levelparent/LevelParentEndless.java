@@ -16,11 +16,11 @@ public abstract class LevelParentEndless extends LevelParent {
         Group midLayer = new Group();
         Group bottomLayer = new Group();
         root.getChildren().addAll(bottomLayer, midLayer, topLayer);
-        keyListeners();
+        endlessKeyListeners();
 
     }
 
-    private void keyListeners(){
+    private void endlessKeyListeners(){
         this.getScene().setOnKeyPressed(e -> {
             KeyCode kc = e.getCode();
             if (kc == KeyCode.R) {resetLevel(ENDLESS_CLASS_NAME);}

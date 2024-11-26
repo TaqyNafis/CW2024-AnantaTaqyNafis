@@ -3,6 +3,7 @@ package com.example.demo.object;
 import com.example.demo.actor.ActiveActorDestructible;
 import com.example.demo.projectile.UserProjectile;
 
+
 public class UserPlane extends FighterPlane {
 
 	private static final String IMAGE_NAME = "userplane.png";
@@ -29,7 +30,7 @@ public class UserPlane extends FighterPlane {
 	public void updatePosition() {
 		if (isMoving()) {
 			double initialTranslateY = getTranslateY();
-			this.moveVertically(VERTICAL_VELOCITY * velocityMultiplier);
+			this.moveVertically(VERTICAL_VELOCITY * (double) velocityMultiplier);
 			double newPosition = getLayoutY() + getTranslateY();
 			if (newPosition < Y_UPPER_BOUND || newPosition > Y_LOWER_BOUND) {
 				this.setTranslateY(initialTranslateY);

@@ -16,11 +16,11 @@ public abstract class LevelParentArcade extends LevelParent {
         Group midLayer = new Group();
         Group bottomLayer = new Group();
         root.getChildren().addAll(bottomLayer, midLayer, topLayer);
-        keyListeners();
+        arcadeKeyListeners();
 
     }
 
-    private void keyListeners(){
+    private void arcadeKeyListeners(){
         this.getScene().setOnKeyPressed(e -> {
             KeyCode kc = e.getCode();
             if (kc == KeyCode.R) {resetLevel(LEVEL_ONE_CLASS_NAME);}
