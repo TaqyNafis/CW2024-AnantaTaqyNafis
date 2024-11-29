@@ -11,8 +11,14 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 
+/**
+ * The `LevelView` class provides a visual representation of a game level.
+ * It manages and displays UI elements such as hearts, win and game-over images,
+ * pause menus, and overlays.
+ */
 public class LevelView {
-	
+
+	// Constants for positioning and sizing
 	private static final double HEART_DISPLAY_X_POSITION = 5;
 	private static final double HEART_DISPLAY_Y_POSITION = 25;
 	private static final int IMAGE_X_POSITION = 335;
@@ -22,54 +28,77 @@ public class LevelView {
 
 	private final Group topLayer;
 
-    private final WinImage winImage;
+	private final WinImage winImage;
 	private final GameOverImage gameOverImage;
 	private final HeartDisplay heartDisplay;
 	private final PauseMenuImage pauseMenuImage;
 	private final Rectangle darkOverlay;
-	
+
+	/**
+	 * Constructs a `LevelView` instance.
+	 *
+	 * @param root             The root group to hold all layers of the level view.
+	 * @param heartsToDisplay  The number of hearts to display in the heart UI.
+	 */
 	public LevelView(Group root, int heartsToDisplay) {
 		this.topLayer = new Group();
 		Group midLayer = new Group();
 		Group bottomLayer = new Group();
 
+		// Add layers to the root
 		root.getChildren().addAll(bottomLayer, midLayer, topLayer);
 
+		// Initialize UI elements
 		this.heartDisplay = new HeartDisplay(HEART_DISPLAY_X_POSITION, HEART_DISPLAY_Y_POSITION, heartsToDisplay);
 		this.winImage = new WinImage(IMAGE_X_POSITION, IMAGE_Y_POSITION + 35.00);
 		this.gameOverImage = new GameOverImage(IMAGE_X_POSITION, IMAGE_Y_POSITION);
 		this.pauseMenuImage = new PauseMenuImage(IMAGE_X_POSITION, IMAGE_Y_POSITION);
 		this.darkOverlay = new Rectangle(SCREEN_WIDTH, SCREEN_HEIGHT, Color.rgb(0, 0, 0, 0.6));
 
+		// Add pause menu overlay
 		topLayer.getChildren().add(darkOverlay);
 		topLayer.getChildren().add(pauseMenuImage);
 		darkOverlay.setVisible(false);
 
-		Text controlInformation = new Text("[ESC] to pause\t[R]to restart to Start\t\t[ENTER]to go back to main menu");
+		// Add control information
+		Text controlInformation = new Text("[ESC] to pause\t[R] to restart\t[ENTER] to go back to main menu");
 		controlInformation.setFont(new Font("Arial", 18));
 		controlInformation.setFill(Color.BLACK);
 		controlInformation.setX(600);
 		controlInformation.setY(700);
 
-		// Add controlInformation to topLayer for visibility
+		// Add control information to the top layer
 		if (!topLayer.getChildren().contains(controlInformation)) {
 			topLayer.getChildren().add(controlInformation);
 		}
 	}
 
-	
+	/**
+	 * Displays the heart UI on the screen.
+	 */
 	public void showHeartDisplay() {
 		topLayer.getChildren().add(heartDisplay.getContainer());
 	}
 
+	/**
+	 * Displays the win image on the screen.
+	 */
 	public void showWinImage() {
 		topLayer.getChildren().add(winImage);
 	}
-	
+
+	/**
+	 * Displays the game-over image on the screen.
+	 */
 	public void showGameOverImage() {
 		topLayer.getChildren().add(gameOverImage);
 	}
-	
+
+	/**
+	 * Removes hearts from the heart display, reflecting the current health.
+	 *
+	 * @param heartsRemaining The number of hearts to remain displayed.
+	 */
 	public void removeHearts(int heartsRemaining) {
 		int currentNumberOfHearts = heartDisplay.getContainer().getChildren().size();
 		for (int i = 0; i < currentNumberOfHearts - heartsRemaining; i++) {
@@ -77,15 +106,19 @@ public class LevelView {
 		}
 	}
 
+	/**
+	 * Displays the pause menu and activates the dark overlay.
+	 */
 	public void showPauseMenuImage() {
 		darkOverlay.setVisible(true);
 		pauseMenuImage.showPauseMenu();
 	}
 
-	public  void hidePauseMenuImage() {
+	/**
+	 * Hides the pause menu and deactivates the dark overlay.
+	 */
+	public void hidePauseMenuImage() {
 		darkOverlay.setVisible(false);
 		pauseMenuImage.hidePauseMenu();
 	}
-
-
 }

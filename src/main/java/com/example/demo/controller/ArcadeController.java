@@ -13,11 +13,24 @@ import javafx.stage.Stage;
 import javafx.application.Platform;
 import com.example.demo.levelparent.LevelParentArcade;
 
+/**
+ * The controller class for managing the arcade mode of the game.
+ * It listens for changes to the stage dimensions, handles transitions between levels,
+ * and manages the display of the game's scenes.
+ */
 public class ArcadeController implements PropertyChangeListener {
 
 	private final Stage stage;
+	/**
+	 * Base location of Level One
+	 */
 	private static final String LEVEL_ONE_CLASS_NAME = "com.example.demo.LevelOne";
 
+	/**
+	 * Constructor to initialize the ArcadeController with the given stage.
+	 *
+	 * @param stage The main application stage.
+	 */
 	public ArcadeController(Stage stage) {
 		this.stage = stage;
 
@@ -25,14 +38,36 @@ public class ArcadeController implements PropertyChangeListener {
 		stage.widthProperty().addListener((obs, oldVal, newVal) -> centerWindow());
 		stage.heightProperty().addListener((obs, oldVal, newVal) -> centerWindow());
 	}
-
+	/**
+	 * Launches the arcade mode by showing the stage and starting the first level.
+	 *
+	 * @throws ClassNotFoundException If the level class cannot be found.
+	 * @throws NoSuchMethodException If the constructor of the level class cannot be found.
+	 * @throws SecurityException If the constructor of the level class cannot be accessed.
+	 * @throws InstantiationException If the level class cannot be instantiated.
+	 * @throws IllegalAccessException If there is an illegal access to the constructor of the level class.
+	 * @throws IllegalArgumentException If the constructor parameters are incorrect.
+	 * @throws InvocationTargetException If the constructor throws an exception.
+	 */
 	public void launchArcadeMode() throws ClassNotFoundException, NoSuchMethodException, SecurityException,
 			InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 
 		stage.show();
 		goToLevel(LEVEL_ONE_CLASS_NAME);
 	}
-
+	/**
+	 * Transitions to a specific level by dynamically loading the class,
+	 * instantiating it, and setting the corresponding scene.
+	 *
+	 * @param className The fully qualified name of the level class to transition to.
+	 * @throws ClassNotFoundException If the level class cannot be found.
+	 * @throws NoSuchMethodException If the constructor of the level class cannot be found.
+	 * @throws SecurityException If the constructor of the level class cannot be accessed.
+	 * @throws InstantiationException If the level class cannot be instantiated.
+	 * @throws IllegalAccessException If there is an illegal access to the constructor of the level class.
+	 * @throws IllegalArgumentException If the constructor parameters are incorrect.
+	 * @throws InvocationTargetException If the constructor throws an exception.
+	 */
 	private void goToLevel(String className) throws ClassNotFoundException, NoSuchMethodException, SecurityException,
 			InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 
@@ -46,7 +81,11 @@ public class ArcadeController implements PropertyChangeListener {
 		stage.setScene(scene);
 		myLevel.startGame();
 	}
-
+	/**
+	 * Handles property change events, which are triggered when the game transitions to a new level.
+	 *
+	 * @param evt The property change event containing the new level's class name.
+	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		try {
@@ -58,8 +97,10 @@ public class ArcadeController implements PropertyChangeListener {
 			alert.show();
 		}
 	}
-
-	// Function to center the window whenever the screen size changes
+	/**
+	 * Centers the window on the screen whenever the stage size changes.
+	 * This method adjusts the position of the window to keep it centered on the screen.
+	 */
 	private void centerWindow() {
 		Platform.runLater(() -> {
 			// Get the screen bounds

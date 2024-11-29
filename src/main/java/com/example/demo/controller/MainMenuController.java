@@ -11,14 +11,22 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
+/**
+ * The MainMenuController class is responsible for managing the main menu of the game.
+ * It provides options to start different game modes, view controls, and learn how to play.
+ */
 public class MainMenuController {
 
     private Stage stage;
     private ArcadeController gameArcadeController;
     private EndlessController endlessController;
-
+    /**
+     * Base location of How To Play FXML file
+     */
     private static final String HOW_TO_PLAY_FXML = "/fxml/HowToPlay.fxml";
+    /**
+     * Base location of Controls FXML file
+     */
     private static final String CONTROL_FXML = "/fxml/Controls.fxml";
     private static final Logger logger = Logger.getLogger(MainMenuController.class.getName());
 
@@ -29,7 +37,10 @@ public class MainMenuController {
         this.gameArcadeController = gameArcadeController;
         this.endlessController = new EndlessController(stage);
     }
-
+    /**
+     * Starts the arcade mode by initializing and launching the ArcadeController.
+     * This method adjusts the stage size for the arcade mode and handles any errors encountered.
+     */
     @FXML
     public void startArcadeMode() {
         try {
@@ -41,6 +52,10 @@ public class MainMenuController {
         }
     }
 
+    /**
+     * Starts the endless mode by initializing and launching the EndlessController.
+     * This method adjusts the stage size for the endless mode and handles any errors encountered.
+     */
     @FXML
     public void startEndlessMode() {
         try {
@@ -51,7 +66,11 @@ public class MainMenuController {
             logger.log(Level.SEVERE, "Error starting Endless Mode", e);
         }
     }
-
+    /**
+     * Displays the "How to Play" menu by loading the corresponding FXML file.
+     * It initializes the HowToPlayController and sets the new scene to the stage.
+     * This method handles any errors encountered during the loading process.
+     */
     @FXML
     public void showHowToPlay() {
         try {
@@ -73,7 +92,11 @@ public class MainMenuController {
             logger.log(Level.SEVERE, "Error starting How to Play Menu", e);
         }
     }
-
+    /**
+     * Displays the control menu by loading the corresponding FXML file.
+     * It initializes the ControlController and sets the new scene to the stage.
+     * This method handles any errors encountered during the loading process.
+     */
     @FXML
     public void goToControl() {
         try {
