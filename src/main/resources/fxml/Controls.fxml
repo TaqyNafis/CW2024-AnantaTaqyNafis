@@ -10,9 +10,7 @@
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="390.0" stylesheets="@../styles/backtomenu.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.controller.ControlController">
    <AnchorPane prefHeight="200.0" prefWidth="390.0">
       <ImageView fitHeight="700.0" fitWidth="390.0" pickOnBounds="true">
-         <image>
-            <Image url="@../com/example/demo/images/menuBackground.png" />
-         </image>
+         <Image url="@../com/example/demo/images/menuBackground.png"/>
       </ImageView>
       <ImageView fitHeight="700.0" fitWidth="390.0" pickOnBounds="true">
          <Image url="@../com/example/demo/images/Control.png" />
@@ -20,9 +18,7 @@
       <Button fx:id="backtomenuButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#backToMainMenu" prefHeight="41.0" prefWidth="135.0" style="-fx-background-color: transparent">
          <graphic>
             <ImageView fitHeight="56.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../com/example/demo/images/button/backtomenubutton.png" />
-               </image>
+               <Image url="@../com/example/demo/images/button/backtomenubutton.png"/>
             </ImageView>
          </graphic>
          <cursor>

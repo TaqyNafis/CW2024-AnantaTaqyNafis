@@ -18,30 +18,24 @@
          </cursor>
          <graphic>
             <ImageView fitHeight="56.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../com/example/demo/images/button/backtomenubutton.png" />
-               </image>
+               <Image url="@../com/example/demo/images/button/backtomenubutton.png"/>
             </ImageView>
          </graphic></Button>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="27.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../com/example/demo/images/How%20To%20Play%20Text/moveInfo.png" />
-         </image>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="27.0" layoutY="313.0" pickOnBounds="true"
+                 preserveRatio="true">
+         <Image url="@../com/example/demo/images/HowToPlayText/moveInfo.png"/>
       </ImageView>
-      <ImageView fitHeight="151.0" fitWidth="296.0" layoutX="-7.0" layoutY="145.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../com/example/demo/images/How%20To%20Play%20Text/move.gif" />
-         </image>
+      <ImageView fitHeight="151.0" fitWidth="296.0" layoutX="-7.0" layoutY="145.0" pickOnBounds="true"
+                 preserveRatio="true">
+         <Image url="@../com/example/demo/images/HowToPlayText/move.gif"/>
       </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="287.0" layoutY="303.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../com/example/demo/images/How%20To%20Play%20Text/shootInfo.png" />
-         </image>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="287.0" layoutY="303.0" pickOnBounds="true"
+                 preserveRatio="true">
+         <Image url="@../com/example/demo/images/HowToPlayText/shootInfo.png"/>
       </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="231.0" layoutX="287.0" layoutY="164.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../com/example/demo/images/How%20To%20Play%20Text/shoot.gif" />
-         </image>
+      <ImageView fitHeight="150.0" fitWidth="231.0" layoutX="287.0" layoutY="164.0" pickOnBounds="true"
+                 preserveRatio="true">
+         <Image url="@../com/example/demo/images/HowToPlayText/shoot.gif"/>
       </ImageView>
    </AnchorPane>
 </Pane>

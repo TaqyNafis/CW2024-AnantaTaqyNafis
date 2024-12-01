@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.display.MainMenu;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import java.io.IOException;
 
@@ -14,6 +15,7 @@ import java.util.logging.Logger;
  */
 public class HowToPlayController {
 
+    public Button backtomenuButton;
     private Stage stage;
     private ArcadeController gameArcadeController;
     private static final Logger logger = Logger.getLogger(HowToPlayController.class.getName());

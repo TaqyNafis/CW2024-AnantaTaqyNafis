@@ -13,7 +13,6 @@ import java.util.concurrent.ThreadLocalRandom;
  * such as continuously spawning enemies, tracking the number of kills, and handling game-over conditions.
  */
 public class LevelEndless extends LevelParentEndless {
-
     /**
      * The file path to the background image for the endless level.
      */

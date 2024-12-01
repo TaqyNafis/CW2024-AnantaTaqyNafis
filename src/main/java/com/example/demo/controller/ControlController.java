@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.display.MainMenu;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import java.io.IOException;
 
@@ -13,6 +14,7 @@ import java.util.logging.Logger;
  * It provides functionality to navigate back to the main menu from the "Controls" screen.
  */
 public class ControlController {
+    public Button backtomenuButton;
     private Stage stage;
     private ArcadeController gameArcadeController;
     private static final Logger logger = Logger.getLogger(ControlController.class.getName());

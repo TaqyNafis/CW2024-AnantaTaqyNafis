@@ -1,10 +1,13 @@
 package com.example.demo.projectile;
 
 public class EnemyProjectile extends Projectile {
-	
+	/**
+	 * The base path for image
+	 */
 	private static final String IMAGE_NAME = "enemyFire.png";
 	private static final int IMAGE_HEIGHT = 17;
 	private static final double HORIZONTAL_VELOCITY = -10;
+
 
 	public EnemyProjectile(double initialXPos, double initialYPos) {
 		super(IMAGE_NAME, IMAGE_HEIGHT, initialXPos, initialYPos);

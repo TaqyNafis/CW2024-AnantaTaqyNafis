@@ -9,23 +9,19 @@
 
 <VBox prefHeight="400.0" prefWidth="640.0" stylesheets="@../styles/mainmenu.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.controller.MainMenuController">
     <AnchorPane accessibleRole="BUTTON" prefHeight="400.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
-      <ImageView fitHeight="400.0" fitWidth="640.0" pickOnBounds="true">
-         <image>
-            <Image url="@../com/example/demo/images/menuBackground.png" />
-         </image>
-      </ImageView>
+        <ImageView fitHeight="400.0" fitWidth="640.0" pickOnBounds="true">
+            <Image url="@../com/example/demo/images/menuBackground.png"/>
+        </ImageView>
         <ImageView fitHeight="141.0" fitWidth="356.0" layoutX="163.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
             <Image url="@../com/example/demo/images/Title.png" />
         </ImageView>
         <Button fx:id="arcadeButton" alignment="CENTER" layoutX="33.0" layoutY="174.0" mnemonicParsing="false" onAction="#startArcadeMode" prefHeight="63.0" prefWidth="181.0" style="-fx-background-color: transparent;">
             <graphic>
                 <ImageView fitHeight="90.0" fitWidth="241.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../com/example/demo/images/button/arcadebutton.png" />
-                    </image>
                     <cursor>
-                        <Cursor fx:constant="HAND" />
+                        <Cursor fx:constant="HAND"/>
                     </cursor>
+                    <Image url="@../com/example/demo/images/button/arcadebutton.png"/>
                 </ImageView>
             </graphic>
             <cursor>
@@ -37,11 +33,9 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
          <graphic>
-            <ImageView fitHeight="90.0" fitWidth="241.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../com/example/demo/images/button/endlessbutton.png" />
-               </image>
-            </ImageView>
+             <ImageView fitHeight="90.0" fitWidth="241.0" pickOnBounds="true" preserveRatio="true">
+                 <Image url="@../com/example/demo/images/button/endlessbutton.png"/>
+             </ImageView>
          </graphic>
         </Button>
         <Button fx:id="howtoplayButton" layoutX="190.0" layoutY="277.0" mnemonicParsing="false" onAction="#showHowToPlay" prefHeight="59.0" prefWidth="208.0" style="-fx-background-color: transparent;">
@@ -49,11 +43,9 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
          <graphic>
-            <ImageView fitHeight="90.0" fitWidth="241.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../com/example/demo/images/button/howtoplaybutton.png" />
-               </image>
-            </ImageView>
+             <ImageView fitHeight="90.0" fitWidth="241.0" pickOnBounds="true" preserveRatio="true">
+                 <Image url="@../com/example/demo/images/button/howtoplaybutton.png"/>
+             </ImageView>
          </graphic>
         </Button>
       <Button fx:id="controlsButton" layoutX="523.0" layoutY="284.0" mnemonicParsing="false" onAction="#goToControl" style="-fx-background-color: transparent;">
@@ -61,11 +53,9 @@
               <Cursor fx:constant="HAND" />
           </cursor>
          <graphic>
-            <ImageView fitHeight="100.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../com/example/demo/images/button/controlsbutton.png" />
-               </image>
-            </ImageView>
+             <ImageView fitHeight="100.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                 <Image url="@../com/example/demo/images/button/controlsbutton.png"/>
+             </ImageView>
          </graphic>
       </Button>
     </AnchorPane>
