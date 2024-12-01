@@ -1,0 +1,12 @@
+#arcadeButton:focused {
+    -fx-graphic: url("../com/example/demo/images/button/arcadebuttonFocused.png ");
+}
+#endlessButton:focused {
+    -fx-graphic: url("../com/example/demo/images/button/endlessbuttonFocused.png ");
+}
+#howtoplayButton:focused {
+    -fx-graphic: url("../com/example/demo/images/button/howtoplaybuttonFocused.png ");
+}
+#controlsButton:focused {
+    -fx-graphic: url("../com/example/demo/images/button/controlsbuttonFocused.png ");
+}
