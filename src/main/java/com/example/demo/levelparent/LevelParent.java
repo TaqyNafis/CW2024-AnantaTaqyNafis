@@ -151,6 +151,10 @@ public abstract class LevelParent {
 	 */
 	private static final Logger logger = Logger.getLogger(LevelParent.class.getName());
 
+	/**
+	 * The offset value added to the screen width to determine when an enemy has moved
+	 * far enough off-screen to be considered as having penetrated the user's defenses.
+	 */
 	private static final int ENEMY_DESPAWN_OFFSET=280;
 
 
@@ -458,9 +462,11 @@ public abstract class LevelParent {
 
 	/**
 	 * Checks if an enemy has penetrated the user's defenses by moving off the screen.
+	 * The enemy is considered to have penetrated if its absolute horizontal position
+	 * exceeds the screen width plus the {@code ENEMY_DESPAWN_OFFSET}.
 	 *
 	 * @param enemy the enemy unit to check.
-	 * @return true if the enemy has penetrated the defenses, false otherwise.
+	 * @return {@code true} if the enemy has penetrated the defenses, {@code false} otherwise.
 	 */
 	private boolean enemyHasPenetratedDefenses(ActiveActorDestructible enemy) {
 		return Math.abs(enemy.getTranslateX()) > screenWidth+ENEMY_DESPAWN_OFFSET;

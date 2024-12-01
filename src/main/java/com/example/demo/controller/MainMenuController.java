@@ -18,12 +18,34 @@ import java.util.logging.Logger;
  */
 public class MainMenuController {
 
+    /**
+     * Button for selecting the arcade mode.
+     */
     public Button arcadeButton;
+    /**
+     * Button for selecting the endless mode.
+     */
     public Button endlessButton;
+    /**
+     * Button for accessing the "How to Play" menu.
+     */
     public Button howtoplayButton;
+    /**
+     * Button for accessing the controls menu.
+     */
     public Button controlsButton;
+    /**
+     * The primary stage used for displaying scenes.
+     */
     private Stage stage;
+    /**
+     * The controller for managing the arcade game mode.
+     */
     private ArcadeController gameArcadeController;
+
+    /**
+     * The controller for managing the endless game mode.
+     */
     private EndlessController endlessController;
     /**
      * Base location of How To Play FXML file
@@ -33,11 +55,17 @@ public class MainMenuController {
      * Base location of Controls FXML file
      */
     private static final String CONTROL_FXML = "/fxml/Controls.fxml";
+    /**
+     * Logger for logging errors and informational messages.
+     */
     private static final Logger logger = Logger.getLogger(MainMenuController.class.getName());
 
-
-
-    // Initialize method to set the stage and game controller
+    /**
+     * Initializes the {@code MainMenuController} with the primary stage and arcade game controller.
+     *
+     * @param stage                the primary stage for the application
+     * @param gameArcadeController the controller for the arcade game mode
+     */
     public void initialize(Stage stage, ArcadeController gameArcadeController) {
         this.stage = stage;
         this.gameArcadeController = gameArcadeController;

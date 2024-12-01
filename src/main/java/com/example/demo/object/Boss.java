@@ -122,11 +122,30 @@ public class Boss extends FighterPlane {
 	 * Shield image representing the boss plane's shield when activated.
 	 */
 	private final ShieldImage shieldImage;
-
+	/**
+	 * Represents the maximum number of frames the Boss can remain in an invincibility state.
+	 */
 	private static final int MAX_INVINCIBILITY_FRAME=30;
+	/**
+	 * Tracks the current frame count during the Boss's invincibility state.
+	 * Resets when the invincibility period ends.
+	 */
 	private int invincibilityFrame=0;
+	/**
+	 * Indicates whether the Boss is currently in an invincibility state.
+	 * If true, the Boss cannot take damage.
+	 */
 	private boolean hasInvincibility = false;
-
+	/**
+	 * Constructs a new {@code Boss} object with predefined attributes and behaviors.
+	 * <p>
+	 * Initializes the Boss with:
+	 * <ul>
+	 *     <li>A movement pattern for vertical positioning.</li>
+	 *     <li>A shield image for visual and functional protection.</li>
+	 *     <li>Base health, position, and size inherited from {@link FighterPlane}.</li>
+	 * </ul>
+	 */
 	public Boss() {
 		super(IMAGE_NAME, IMAGE_HEIGHT, INITIAL_X_POSITION, INITIAL_Y_POSITION, HEALTH);
 		movePattern = new ArrayList<>();

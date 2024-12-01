@@ -108,14 +108,17 @@ public class LevelEndless extends LevelParentEndless {
      * New enemies are added to the game if the current number of enemies is below the allowed maximum.
      * Each enemy is assigned a random initial position and is spawned based on a defined probability.
      *
-     * <p>Key Details:
+     * <p>Key Details:</p>
      * <ul>
      *   <li>New enemies are created with a random Y-coordinate within the screen's allowed range.</li>
      *   <li>The X-coordinate is set to spawn the enemy slightly off the right edge of the screen.</li>
      *   <li>Enemies are spawned only if a random check passes based on {@code ENEMY_SPAWN_PROBABILITY}.</li>
      *   <li>The method ensures the number of on-screen enemies does not exceed {@code TOTAL_ENEMIES_ON_SCREEN}.</li>
      * </ul>
-     * </p>
+     *
+     * <p>This method creates new enemies and places them on the screen at random positions
+     * within the defined spawn area, provided the current number of enemies is less than the
+     * defined maximum allowed on screen.</p>
      */
     @Override
     protected void spawnEnemyUnits() {
