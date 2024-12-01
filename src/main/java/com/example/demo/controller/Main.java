@@ -21,7 +21,9 @@ import java.util.logging.Logger;
  * </p>
  */
 public class Main extends Application {
-
+	/**
+	 * Logger for recording errors and important events in the HowToPlayController class.
+	 */
 	private static final Logger logger = Logger.getLogger(Main.class.getName());
 	/**
 	 * The main entry point for all JavaFX applications.
