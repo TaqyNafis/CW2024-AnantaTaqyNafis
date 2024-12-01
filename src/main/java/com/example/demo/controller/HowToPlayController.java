@@ -10,14 +10,33 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * The HowToPlayController class is responsible for managing the "How to Play" screen in the game.
- * It provides functionality to navigate back to the main menu from the "How to Play" screen.
+ * The {@code HowToPlayController} class manages the "How to Play" screen in the game.
+ * It provides the functionality for displaying instructions or help on how to play the game.
+ * The controller allows users to navigate back to the main menu from the "How to Play" screen.
+ * <p>
+ * This class is used when the player clicks the "How to Play" button from the main menu.
+ * It handles user interactions with the "Back to Main Menu" button, allowing for seamless
+ * navigation between screens.
+ * </p>
  */
 public class HowToPlayController {
-
+    /**
+     * The button that allows the user to return to the main menu from the "How to Play" screen.
+     */
     public Button backtomenuButton;
+    /**
+     * The primary stage for the JavaFX application, used for displaying the scenes.
+     */
+
     private Stage stage;
+    /**
+     * The primary stage for the JavaFX application, used for displaying the scenes.
+     */
+
     private ArcadeController gameArcadeController;
+    /**
+     * Logger for recording errors and important events in the HowToPlayController class.
+     */
     private static final Logger logger = Logger.getLogger(HowToPlayController.class.getName());
     /**
      * Initializes the HowToPlayController with the provided stage and game arcade controller.

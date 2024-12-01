@@ -10,8 +10,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * The Main class serves as the entry point for the JavaFX application.
- * It initializes and launches the main menu of the game.
+ * The {@code Main} class serves as the entry point for the JavaFX application.
+ * It extends {@link javafx.application.Application} and provides the necessary
+ * setup to launch the game. This class initializes the primary stage and displays
+ * the main menu of the game when the application starts.
+ * <p>
+ * The class overrides the {@link #start(Stage)} method to set up the stage with the
+ * initial scene, which is the main menu. It also includes the {@link #main(String[])}
+ * method to launch the JavaFX runtime.
+ * </p>
  */
 public class Main extends Application {
 

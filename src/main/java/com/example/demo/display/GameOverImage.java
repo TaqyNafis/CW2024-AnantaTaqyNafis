@@ -5,6 +5,10 @@ import javafx.scene.image.ImageView;
 
 import java.util.Objects;
 
+/**
+ * The {@code GameOverImage} class represents the "Game Over" image displayed when the player loses the game.
+ * It extends {@code ImageView} to show an image with a specific size and position on the screen.
+ */
 public class GameOverImage extends ImageView {
 	/**
 	 * The file path to the "Game Over" image resource.

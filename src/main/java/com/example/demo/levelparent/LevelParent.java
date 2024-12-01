@@ -23,6 +23,36 @@ import java.util.logging.Logger;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+/**
+ * The {@code LevelParent} class represents the base structure for game levels.
+ * It contains the common functionality for managing the game environment, including
+ * user and enemy units, projectiles, collisions, and game flow.
+ * <p>
+ * This class is abstract and must be extended by specific level classes that
+ * implement level-specific logic such as spawning enemies, handling level-specific
+ * user interface updates, and checking the game over conditions.
+ * </p>
+ *
+ * The class manages various aspects of the game, such as:
+ * <ul>
+ *     <li>Scene and visual layers (top, middle, bottom)</li>
+ *     <li>User input (keyboard events for controlling the player plane)</li>
+ *     <li>Enemy unit management (spawning, movement, and destruction)</li>
+ *     <li>Projectile handling (both user and enemy projectiles)</li>
+ *     <li>Collision detection between projectiles, enemies, and the user plane</li>
+ *     <li>Level transition and pause functionality</li>
+ * </ul>
+ *
+ * <p>
+ * Subclasses of {@code LevelParent} must implement abstract methods to define the
+ * behavior of specific levels, including initializing friendly units, spawning enemies,
+ * updating text information (e.g., health, score), and handling the win/loss conditions.
+ * </p>
+ * <p>
+ * The game uses JavaFX components like {@link Scene}, {@link Timeline}, and {@link ImageView}
+ * for rendering the game and controlling the flow of time within the game.
+ * </p>
+ */
 public abstract class LevelParent {
 
 	/**
@@ -535,7 +565,12 @@ public abstract class LevelParent {
 		levelView.hidePauseMenuImage();}
 	}
 
-	//reset level function
+	/**
+	 * Resets the current level by clearing all assets and transitioning to the specified level.
+	 * This method calls {@link #goToNextLevel(String)} to handle the level transition.
+	 *
+	 * @param level the name of the next level to transition to.
+	 */
 	public void resetLevel( String level){
 		goToNextLevel(level);
 	}
@@ -554,6 +589,13 @@ public abstract class LevelParent {
 		}
 	}
 
+	/**
+	 * Returns the user-controlled plane (the player character) in the game.
+	 * The {@code UserPlane} object represents the player's plane, which can be moved,
+	 * shot from, and takes damage when it collides with enemies or their projectiles.
+	 *
+	 * @return the {@link UserPlane} object controlled by the player.
+	 */
 	protected UserPlane getUser() {
 		return user;
 	}

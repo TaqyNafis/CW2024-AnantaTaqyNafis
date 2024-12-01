@@ -10,13 +10,32 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * The HowToPlayController class is responsible for managing the "Controls" screen in the game.
+ * The {@code ControlController} class is responsible for managing the "Controls" screen in the game.
  * It provides functionality to navigate back to the main menu from the "Controls" screen.
+ * This class is used when the user wants to see the controls or return to the main menu.
+ * <p>
+ * It handles interactions with the user through a button to return to the main menu.
+ * </p>
  */
 public class ControlController {
+    /**
+     * The button that allows the user to navigate back to the main menu from the "Controls" screen.
+     */
     public Button backtomenuButton;
+    /**
+     * The main stage used for displaying the various scenes in the application.
+     * This stage is passed to the controller to manage scene transitions.
+     */
     private Stage stage;
+    /**
+     * The ArcadeController that manages the gameplay in the arcade mode.
+     * This controller is used to facilitate transitions and gameplay management.
+     */
     private ArcadeController gameArcadeController;
+    /**
+     * Logger for logging errors related to the ControlController class.
+     * It logs any issues that occur while interacting with the controls screen.
+     */
     private static final Logger logger = Logger.getLogger(ControlController.class.getName());
 
     /**

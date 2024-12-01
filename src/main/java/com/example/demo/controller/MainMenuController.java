@@ -13,8 +13,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * The MainMenuController class is responsible for managing the main menu of the game.
- * It provides options to start different game modes, view controls, and learn how to play.
+ * The {@code MainMenuController} class manages the main menu of the game.
+ * It handles user interactions for starting different game modes, viewing controls, and learning how to play.
+ * It provides methods for navigating between different menu screens such as the arcade mode, endless mode,
+ * how-to-play, and controls menus.
  */
 public class MainMenuController {
 
@@ -62,6 +64,7 @@ public class MainMenuController {
 
     /**
      * Initializes the {@code MainMenuController} with the primary stage and arcade game controller.
+     * This method is automatically called by JavaFX after the FXML file has been loaded.
      *
      * @param stage                the primary stage for the application
      * @param gameArcadeController the controller for the arcade game mode
