@@ -1,0 +1,7 @@
+#backtomenuButton:pressed {
+    -fx-graphic: url("../com/example/demo/images/button/backtomenubuttonFocused.png ");
+}
+
+#backtomenuButton:hover{
+    -fx-graphic: url("../com/example/demo/images/button/backtomenubuttonFocused.png ");
+}

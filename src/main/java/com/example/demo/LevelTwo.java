@@ -33,7 +33,7 @@ public class LevelTwo extends LevelParentArcade {
 	/**
 	 * The X-coordinate for displaying the score (boss health).
 	 */
-	private static final int SCORE_X_POSITION = 1120;
+	private static final int SCORE_X_POSITION = 1100;
 	/**
 	 * The text label to show the boss's health.
 	 */
@@ -55,9 +55,11 @@ public class LevelTwo extends LevelParentArcade {
 		super(BACKGROUND_IMAGE_NAME, screenHeight, screenWidth, PLAYER_INITIAL_HEALTH);
 		boss = new Boss();
 
-		bossHealth.setFont(new Font("Arial", 18));
+		Font pixelFont = Font.loadFont(getClass().getResourceAsStream("/com/example/demo/font/PressStart2P-Regular.ttf"), 16);
+		bossHealth.setFont(pixelFont);
 		bossHealth.setLayoutX(SCORE_X_POSITION);
 		bossHealth.setLayoutY(SCORE_Y_POSITION);
+		bossHealth.setTextFill(javafx.scene.paint.Color.WHITE);
 
 		getTopLayer().getChildren().add(bossHealth);
 	}

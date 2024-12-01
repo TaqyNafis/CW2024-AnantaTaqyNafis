@@ -17,7 +17,7 @@ public class EnemyPlane extends FighterPlane {
 	/**
 	 * The size of enemy's plane.
 	 */
-	private static final int IMAGE_HEIGHT = 70;
+	private static final int IMAGE_HEIGHT = 100;
 	/**
 	 * the distance of enemy plane move horizontally.
 	 */

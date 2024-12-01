@@ -151,6 +151,8 @@ public abstract class LevelParent {
 	 */
 	private static final Logger logger = Logger.getLogger(LevelParent.class.getName());
 
+	private static final int ENEMY_DESPAWN_OFFSET=280;
+
 
 	/**
 	 * Constructs a new level with the given parameters.
@@ -461,7 +463,7 @@ public abstract class LevelParent {
 	 * @return true if the enemy has penetrated the defenses, false otherwise.
 	 */
 	private boolean enemyHasPenetratedDefenses(ActiveActorDestructible enemy) {
-		return Math.abs(enemy.getTranslateX()) > screenWidth;
+		return Math.abs(enemy.getTranslateX()) > screenWidth+ENEMY_DESPAWN_OFFSET;
 	}
 
 	/**

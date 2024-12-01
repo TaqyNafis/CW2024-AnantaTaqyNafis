@@ -31,7 +31,7 @@ public class UserPlane extends FighterPlane {
 	/**
 	 * The size of user plane.
 	 */
-	private static final int IMAGE_HEIGHT = 40;
+	private static final int IMAGE_HEIGHT = 70;
 	/**
 	 * The distance to move vertically.
 	 */
@@ -41,14 +41,14 @@ public class UserPlane extends FighterPlane {
 	 * This represents the horizontal position from the left edge of the user plane
 	 * where the projectile will appear when fired.
 	 */
-	private static final int PROJECTILE_X_POSITION = 110;
+	private static final int PROJECTILE_X_POSITION = 100;
 
 	/**
 	 * The Y-axis offset for the user plane's projectile position.
 	 * This value determines how far vertically (up or down) the projectile
 	 * is positioned relative to the user plane's center when fired.
 	 */
-	private static final int PROJECTILE_Y_POSITION_OFFSET = 20;
+	private static final int PROJECTILE_Y_POSITION_OFFSET = 32;
 	/**
 	 * A multiplier affecting the speed of the user Planes
 	 * Higher values increase the speed of the plane's movement.
@@ -75,6 +75,8 @@ public class UserPlane extends FighterPlane {
 	 * If {@code true}, the user plane cannot take damage.
 	 */
 	private boolean hasInvincibility = false;
+
+
 
 	/**
 	 * Constructs a new {@code UserPlane} instance.

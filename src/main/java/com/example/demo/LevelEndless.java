@@ -21,7 +21,7 @@ public class LevelEndless extends LevelParentEndless {
     /**
      * The maximum number of enemies allowed on the screen at one time.
      */
-    private static final int TOTAL_ENEMIES_ON_SCREEN = 8;
+    private static final int TOTAL_ENEMIES_ON_SCREEN = 6;
 
     /**
      * The probability of spawning a new enemy on each update.
@@ -40,11 +40,11 @@ public class LevelEndless extends LevelParentEndless {
     /**
      * The X-coordinate for displaying the kill count.
      */
-    private static final int SCORE_X_POSITION = 1100;
+    private static final int SCORE_X_POSITION = 920;
     /**
      * The text prefix for the kill count display.
      */
-    private static final String KILLCOUNT_TEXT="Plane Destroyed: ";
+    private static final String KILLCOUNT_TEXT="Enemies Destroyed: ";
     /**
      * A label for displaying the number of enemy planes destroyed.
      */
@@ -53,6 +53,15 @@ public class LevelEndless extends LevelParentEndless {
      * A random number generator for determining enemy spawn positions.
      */
     private static final ThreadLocalRandom randomForPosition = ThreadLocalRandom.current();
+    /**
+     * The Minimum X offset for enemy spawning
+     */
+    private static final double ENEMY_SPAWN_X_OFFSET_MIN= 9;
+    /**
+     * The Maximum X offset for enemy spawning
+     */
+    private static final double ENEMY_SPAWN_X_OFFSET_MAX = 201;
+
 
     /**
      * Constructs a `LevelEndless` instance with the specified screen dimensions.
@@ -63,10 +72,11 @@ public class LevelEndless extends LevelParentEndless {
      */
     public LevelEndless(double screenHeight, double screenWidth) {
         super(BACKGROUND_IMAGE_NAME, screenHeight, screenWidth, PLAYER_INITIAL_HEALTH);
-
-        killCount.setFont(new Font("Arial", 18));
+        Font pixelFont = Font.loadFont(getClass().getResourceAsStream("/com/example/demo/font/PressStart2P-Regular.ttf"), 16);
+        killCount.setFont(pixelFont);
         killCount.setLayoutX(SCORE_X_POSITION);
         killCount.setLayoutY(SCORE_Y_POSITION);
+        killCount.setTextFill(javafx.scene.paint.Color.WHITE);
 
         getTopLayer().getChildren().add(killCount);
     }
@@ -96,20 +106,32 @@ public class LevelEndless extends LevelParentEndless {
     }
     /**
      * Spawns enemy planes for the endless level.
-     * New enemies are added if the current number of enemies is below the allowed maximum.
+     * New enemies are added to the game if the current number of enemies is below the allowed maximum.
+     * Each enemy is assigned a random initial position and is spawned based on a defined probability.
+     *
+     * <p>Key Details:
+     * <ul>
+     *   <li>New enemies are created with a random Y-coordinate within the screen's allowed range.</li>
+     *   <li>The X-coordinate is set to spawn the enemy slightly off the right edge of the screen.</li>
+     *   <li>Enemies are spawned only if a random check passes based on {@code ENEMY_SPAWN_PROBABILITY}.</li>
+     *   <li>The method ensures the number of on-screen enemies does not exceed {@code TOTAL_ENEMIES_ON_SCREEN}.</li>
+     * </ul>
+     * </p>
      */
     @Override
     protected void spawnEnemyUnits() {
         int currentNumberOfEnemies = getCurrentNumberOfEnemies();
-        while (currentNumberOfEnemies< TOTAL_ENEMIES_ON_SCREEN) {
+        while (currentNumberOfEnemies < TOTAL_ENEMIES_ON_SCREEN) {
             if (ThreadLocalRandom.current().nextDouble() < ENEMY_SPAWN_PROBABILITY) {
                 double newEnemyInitialYPosition = randomForPosition.nextDouble() * getEnemyMaximumYPosition();
-                ActiveActorDestructible newEnemy = new EnemyPlane(getScreenWidth(), newEnemyInitialYPosition);
+                double newEnemyInitialXPosition = (getScreenWidth() + randomForPosition.nextDouble(ENEMY_SPAWN_X_OFFSET_MIN, ENEMY_SPAWN_X_OFFSET_MAX));
+                ActiveActorDestructible newEnemy = new EnemyPlane(newEnemyInitialXPosition, newEnemyInitialYPosition);
                 addEnemyUnit(newEnemy);
                 currentNumberOfEnemies++;
             }
         }
     }
+
     /**
      * Instantiates the level view for the endless level.
      *

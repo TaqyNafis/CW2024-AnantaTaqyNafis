@@ -16,7 +16,7 @@ public class WinImage extends ImageView {
 	/**
 	 * The height of the win image.
 	 */
-	private static final int HEIGHT = 500;
+	private static final int HEIGHT = 600;
 	/**
 	 * The Width of the win image.
 	 */

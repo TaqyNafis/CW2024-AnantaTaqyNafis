@@ -12,15 +12,15 @@ public class PauseMenuImage extends ImageView {
     /**
      * The file path to the pause menu image resource.
      */
-    private static final String IMAGE_NAME = "/com/example/demo/images/pauseMenu.gif";
+    private static final String IMAGE_NAME = "/com/example/demo/images/pauseMenu.png";
     /**
      * The height of the pause menu image.
      */
-    private static final int HEIGHT = 500;
+    private static final int HEIGHT = 268;
     /**
      * The width of the pause menu image.
      */
-    private static final int WIDTH = 600;
+    private static final int WIDTH = 604;
     /**
      * Constructs a `PauseMenuImage` instance and sets its position, size, and visibility.
      *

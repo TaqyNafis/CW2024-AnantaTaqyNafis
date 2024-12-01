@@ -21,8 +21,12 @@ public class LevelView {
 	// Constants for positioning and sizing
 	private static final double HEART_DISPLAY_X_POSITION = 5;
 	private static final double HEART_DISPLAY_Y_POSITION = 25;
-	private static final int IMAGE_X_POSITION = 335;
-	private static final int IMAGE_Y_POSITION = 95;
+	private static final int GAME_OVER_IMAGE_X_POSITION = 335;
+	private static final int GAME_OVER_IMAGE_Y_POSITION = 95;
+	private static final int WIN_GAME_IMAGE_X_POSITION = 335;
+	private static final int WIN_GAME_IMAGE_Y_POSITION = 95;
+	private static final int PAUSED_IMAGE_X_POSITION = 355;
+	private static final int PAUSED_IMAGE_Y_POSITION = 185;
 	private static final double SCREEN_WIDTH = Screen.getPrimary().getBounds().getWidth();
 	private static final double SCREEN_HEIGHT = Screen.getPrimary().getBounds().getHeight();
 
@@ -33,6 +37,16 @@ public class LevelView {
 	private final HeartDisplay heartDisplay;
 	private final PauseMenuImage pauseMenuImage;
 	private final Rectangle darkOverlay;
+
+	/**
+	 * The Y-coordinate for displaying text.
+	 */
+	private static final int TEXT_Y_POSITION=700;
+	/**
+	 * The X-coordinate for displaying text.
+	 */
+	private static final int TEXT_X_POSITION = 380;
+
 
 	/**
 	 * Constructs a `LevelView` instance.
@@ -50,9 +64,9 @@ public class LevelView {
 
 		// Initialize UI elements
 		this.heartDisplay = new HeartDisplay(HEART_DISPLAY_X_POSITION, HEART_DISPLAY_Y_POSITION, heartsToDisplay);
-		this.winImage = new WinImage(IMAGE_X_POSITION, IMAGE_Y_POSITION + 35.00);
-		this.gameOverImage = new GameOverImage(IMAGE_X_POSITION, IMAGE_Y_POSITION);
-		this.pauseMenuImage = new PauseMenuImage(IMAGE_X_POSITION, IMAGE_Y_POSITION);
+		this.winImage = new WinImage(WIN_GAME_IMAGE_X_POSITION, WIN_GAME_IMAGE_Y_POSITION);
+		this.gameOverImage = new GameOverImage(GAME_OVER_IMAGE_X_POSITION, GAME_OVER_IMAGE_Y_POSITION);
+		this.pauseMenuImage = new PauseMenuImage(PAUSED_IMAGE_X_POSITION, PAUSED_IMAGE_Y_POSITION);
 		this.darkOverlay = new Rectangle(SCREEN_WIDTH, SCREEN_HEIGHT, Color.rgb(0, 0, 0, 0.6));
 
 		// Add pause menu overlay
@@ -61,12 +75,12 @@ public class LevelView {
 		darkOverlay.setVisible(false);
 
 		// Add control information
+		Font pixelFont = Font.loadFont(getClass().getResourceAsStream("/com/example/demo/font/PressStart2P-Regular.ttf"), 14);
 		Text controlInformation = new Text("[ESC] to pause\t[R] to restart\t[ENTER] to go back to main menu");
-		controlInformation.setFont(new Font("Arial", 18));
-		controlInformation.setFill(Color.BLACK);
-		controlInformation.setX(600);
-		controlInformation.setY(700);
-
+		controlInformation.setFont(pixelFont);
+		controlInformation.setFill(Color.WHITE);
+		controlInformation.setX(TEXT_X_POSITION);
+		controlInformation.setY(TEXT_Y_POSITION);
 		// Add control information to the top layer
 		if (!topLayer.getChildren().contains(controlInformation)) {
 			topLayer.getChildren().add(controlInformation);
@@ -84,6 +98,7 @@ public class LevelView {
 	 * Displays the win image on the screen.
 	 */
 	public void showWinImage() {
+		darkOverlay.setVisible(true);
 		topLayer.getChildren().add(winImage);
 	}
 
@@ -91,6 +106,7 @@ public class LevelView {
 	 * Displays the game-over image on the screen.
 	 */
 	public void showGameOverImage() {
+		darkOverlay.setVisible(true);
 		topLayer.getChildren().add(gameOverImage);
 	}
 

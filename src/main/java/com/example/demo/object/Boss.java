@@ -36,25 +36,25 @@ public class Boss extends FighterPlane {
 	/**
 	 * Initial Y position of Boss plane
 	 */
-	private static final double INITIAL_Y_POSITION = 400;
+	private static final double INITIAL_Y_POSITION = 200;
 	/**
 	 * The Y-axis offset for the boss plane's projectile position.
 	 * This value determines how far vertically (up or down) the projectile
 	 * is positioned relative to the user plane's center when fired.
 	 */
-	private static final double PROJECTILE_Y_POSITION_OFFSET = 0;
+	private static final double PROJECTILE_Y_POSITION_OFFSET = 150;
 	/**
 	 * The fire rate for boss plane
 	 */
-	private static final double BOSS_FIRE_RATE = 0.04;
+	private static final double BOSS_FIRE_RATE = 0.08;
 	/**
 	 * The chances of boss to be in shielded state
 	 */
-	private static final double BOSS_SHIELD_PROBABILITY = 0.002;
+	private static final double BOSS_SHIELD_PROBABILITY = 0.005;
 	/**
 	 * The size of boss plane image
 	 */
-	private static final int IMAGE_HEIGHT = 50;
+	private static final int IMAGE_HEIGHT = 350;
 	/**
 	 * The distance of boss moving vertically in a cycle
 	 */
@@ -62,7 +62,7 @@ public class Boss extends FighterPlane {
 	/**
 	 * The Initial Health of boss plane
 	 */
-	private static final int HEALTH = 2;
+	private static final int HEALTH = 5;
 	/**
 	 * The frequency of boss plane to move in  a cycle
 	 */
@@ -79,15 +79,15 @@ public class Boss extends FighterPlane {
 	/**
 	 * The maximum Y position of boss plane
 	 */
-	private static final int Y_POSITION_UPPER_BOUND = -10;
+	private static final int Y_POSITION_UPPER_BOUND = -130;
 	/**
 	 * The minimum Y position of boss plane
 	 */
-	private static final int Y_POSITION_LOWER_BOUND = 630;
+	private static final int Y_POSITION_LOWER_BOUND = 480;
 	/**
 	 * The Maximum amount of frame boss can be in a shielded state
 	 */
-	private static final int MAX_FRAMES_WITH_SHIELD = 100;
+	private static final int MAX_FRAMES_WITH_SHIELD = 250;
 	/**
 	 * List to store the movement pattern of the boss plane.
 	 * The pattern determines how the boss plane moves vertically in a cycle.
@@ -97,6 +97,15 @@ public class Boss extends FighterPlane {
 	 * Flag indicating whether the boss plane is currently shielded.
 	 */
 	private boolean isShielded;
+	/**
+	 * The X offset for shield position
+	 */
+	private static final int SHIELD_OFFSET_X = 200;
+	/**
+	 * The Y offset for shield position
+	 */
+	private static final int SHIELD_OFFSET_Y = 70;
+
 	/**
 	 * Flag indicating whether the boss plane is currently shielded.
 	 */
@@ -125,7 +134,7 @@ public class Boss extends FighterPlane {
 		indexOfCurrentMove = 0;
 			framesWithShieldActivated = 0;
 		isShielded = false;
-		shieldImage = new ShieldImage(INITIAL_X_POSITION-120, INITIAL_Y_POSITION);
+		shieldImage = new ShieldImage(INITIAL_X_POSITION-SHIELD_OFFSET_X, INITIAL_Y_POSITION+SHIELD_OFFSET_Y);
 		initializeMovePattern();
 	}
 
@@ -138,7 +147,7 @@ public class Boss extends FighterPlane {
 		double initialTranslateY = getTranslateY();
 		moveVertically(getNextMove());
 		double currentPosition = getLayoutY() + getTranslateY();
-		shieldImage.setLayoutY(currentPosition);
+		shieldImage.setLayoutY(currentPosition+SHIELD_OFFSET_Y);
 		if (currentPosition < Y_POSITION_UPPER_BOUND || currentPosition > Y_POSITION_LOWER_BOUND) {
 			setTranslateY(initialTranslateY);
 		}
@@ -255,7 +264,7 @@ public class Boss extends FighterPlane {
 	 */
 	private boolean shieldShouldBeActivated() {
 		if(!isShielded) {
-			return ThreadLocalRandom.current().nextDouble() < BOSS_SHIELD_PROBABILITY;
+			 return ThreadLocalRandom.current().nextDouble() < BOSS_SHIELD_PROBABILITY;
 		}
 		return false;
 	}

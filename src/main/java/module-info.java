@@ -20,4 +20,5 @@ module com.example.demo {
     opens com.example.demo.levelparent to javafx.fxml;
     exports com.example.demo.levelview;
     opens com.example.demo.levelview to javafx.fxml;
+    opens com.example.demo.controller to javafx.fxml;
 }

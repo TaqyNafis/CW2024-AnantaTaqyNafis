@@ -23,7 +23,7 @@ public class MainMenu {
     /**
      * The title of the main menu window.
      */
-    private static final String TITLE = "Sky Battle";
+    private static final String TITLE = "Space Invaders";
     /**
      * The file path to the FXML layout for the main menu.
      */

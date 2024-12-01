@@ -31,6 +31,7 @@ public class MainMenuController {
     private static final Logger logger = Logger.getLogger(MainMenuController.class.getName());
 
 
+
     // Initialize method to set the stage and game controller
     public void initialize(Stage stage, ArcadeController gameArcadeController) {
         this.stage = stage;
@@ -110,7 +111,7 @@ public class MainMenuController {
 
             // Set the new scene to the stage
             Scene scene = new Scene(root);
-            stage.setWidth(390);
+            stage.setWidth(400);
             stage.setHeight(600);
             stage.setScene(scene);
             stage.show();
@@ -118,5 +119,6 @@ public class MainMenuController {
             logger.log(Level.SEVERE, "Error starting Control Menu", e);
         }
     }
+
 
 }

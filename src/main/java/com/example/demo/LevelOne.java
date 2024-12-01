@@ -6,6 +6,7 @@ import com.example.demo.levelview.LevelView;
 import com.example.demo.object.EnemyPlane;
 import javafx.scene.control.Label;
 import javafx.scene.text.Font;
+
 import java.util.concurrent.ThreadLocalRandom;
 /**
  * The `LevelOne` class represents the first level in the arcade game.
@@ -24,11 +25,11 @@ public class LevelOne extends LevelParentArcade {
 	/**
 	 * The maximum number of enemies allowed on the screen at one time.
 	 */
-	private static final int TOTAL_ENEMIES_ON_SCREEN = 5;
+	private static final int TOTAL_ENEMIES_ON_SCREEN = 2;
 	/**
 	 * The number of kills required to advance to the next level.
 	 */
-	private static final int KILLS_TO_ADVANCE = 1;
+	private static final int KILLS_TO_ADVANCE = 4;
 	/**
 	 * The probability of spawning a new enemy on each update.
 	 */
@@ -36,24 +37,20 @@ public class LevelOne extends LevelParentArcade {
 	/**
 	 * The initial health of the player for Level One.
 	 */
-	private static final int PLAYER_INITIAL_HEALTH = 5;
-	/**
-	 * The number of enemies have been spawned
-	 */
-	private int enemiesSpawned;
-	/**
-	 * The Y-coordinate for displaying the kill count.
+	private static final int PLAYER_INITIAL_HEALTH =5;
+    /**
+	 * The Y-coordinate for displaying enemies counter.
 	 */
 	private static final int SCORE_Y_POSITION=20;
 	/**
-	 * The X-coordinate for displaying the kill count.
+	 * The X-coordinate for displaying enemies counter.
 	 */
-	private static final int SCORE_X_POSITION = 1100;
+	private static final int SCORE_X_POSITION = 1000;
 
 	/**
 	 * The text prefix for the kill count display.
 	 */
-	private static final String KILLCOUNT_TEXT="Planes Left: ";
+	private static final String KILLCOUNT_TEXT="Enemies Left: ";
 	/**
 	 * A label for displaying the number of enemy planes left to destroy.
 	 */
@@ -62,6 +59,7 @@ public class LevelOne extends LevelParentArcade {
 	 * A random number generator for determining enemy spawn positions.
 	 */
 	private static final ThreadLocalRandom randomForPosition = ThreadLocalRandom.current();
+
 	/**
 	 * Constructs a `LevelOne` instance with the specified screen dimensions.
 	 * It initializes the background, sets up the player, and configures the kill count display.
@@ -72,9 +70,11 @@ public class LevelOne extends LevelParentArcade {
     public LevelOne(double screenHeight, double screenWidth) {
 		super(BACKGROUND_IMAGE_NAME, screenHeight, screenWidth, PLAYER_INITIAL_HEALTH);
 
-		killCount.setFont(new Font("Arial", 18));
+		Font pixelFont = Font.loadFont(getClass().getResourceAsStream("/com/example/demo/font/PressStart2P-Regular.ttf"), 16);
+		killCount.setFont(pixelFont);
 		killCount.setLayoutX(SCORE_X_POSITION);
 		killCount.setLayoutY(SCORE_Y_POSITION);
+		killCount.setTextFill(javafx.scene.paint.Color.WHITE);
 
 		getTopLayer().getChildren().add(killCount);
 
@@ -108,24 +108,28 @@ public class LevelOne extends LevelParentArcade {
 	@Override
 	protected void spawnEnemyUnits() {
 		int currentNumberOfEnemies = getCurrentNumberOfEnemies();
-		while (currentNumberOfEnemies< TOTAL_ENEMIES_ON_SCREEN && enemiesSpawned < KILLS_TO_ADVANCE) {
+		int numberOfKills = getUser().getNumberOfKills();
+		int remainingKills = KILLS_TO_ADVANCE - numberOfKills;
+
+		while (currentNumberOfEnemies < TOTAL_ENEMIES_ON_SCREEN && remainingKills > currentNumberOfEnemies) {
 			if (ThreadLocalRandom.current().nextDouble() < ENEMY_SPAWN_PROBABILITY) {
 				double newEnemyInitialYPosition = randomForPosition.nextDouble() * getEnemyMaximumYPosition();
 				ActiveActorDestructible newEnemy = new EnemyPlane(getScreenWidth(), newEnemyInitialYPosition);
 				addEnemyUnit(newEnemy);
 
-				enemiesSpawned++;
-				currentNumberOfEnemies++;
+				currentNumberOfEnemies = getCurrentNumberOfEnemies();
 			}
 		}
 	}
+
+
 	/**
 	 * Updates the displayed text showing the number of enemy planes left to destroy.
 	 */
 	@Override
 	protected void updateText() {
-		int x= getUser().getNumberOfKills();
-		int sum= KILLS_TO_ADVANCE - x;
+		int numberOfKills= getUser().getNumberOfKills();
+		int sum= KILLS_TO_ADVANCE - numberOfKills;
 		killCount.setText(KILLCOUNT_TEXT + sum);
 	}
 	/**
@@ -146,4 +150,5 @@ public class LevelOne extends LevelParentArcade {
 	private boolean userHasReachedKillTarget() {
 		return getUser().getNumberOfKills() >= KILLS_TO_ADVANCE;
 	}
+
 }
