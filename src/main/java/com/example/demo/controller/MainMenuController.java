@@ -33,7 +33,7 @@ public class MainMenuController {
      */
     public Button howtoplayButton;
     /**
-     * Button for accessing the controls menu.
+     * Button for accessing the control's menu.
      */
     public Button controlsButton;
     /**
