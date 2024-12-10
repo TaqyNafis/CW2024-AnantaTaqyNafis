@@ -206,8 +206,10 @@ public class Boss extends FighterPlane {
 	public void updateInvincibilityFrame() {
 		if(hasInvincibility) {
 			invincibilityFrame++;
+			if(isShielded) shieldImage.setVisible(invincibilityFrame % 4 == 0);
 		}
-        super.setVisible(invincibilityFrame % 4 == 0);
+
+		super.setVisible(invincibilityFrame % 4 == 0);
 
 		if(invincibilityFrame==MAX_INVINCIBILITY_FRAME) {
 			hasInvincibility = false;
@@ -229,7 +231,7 @@ public class Boss extends FighterPlane {
 	 * Updates the shield state of the boss plane.
 	 * The shield may activate randomly or deactivate after a set duration.
 	 */
-	private void updateShield() {
+    protected void updateShield() {
 		if (isShielded) {
 			framesWithShieldActivated++;
 			shieldImage.showShield();
@@ -265,8 +267,8 @@ public class Boss extends FighterPlane {
 	 *
 	 * @return True if the boss fires, false otherwise.
 	 */
-	private boolean bossFiresInCurrentFrame() {
-		return ThreadLocalRandom.current().nextDouble() < BOSS_FIRE_RATE;
+    protected boolean bossFiresInCurrentFrame() {
+		return getRandomDouble() < BOSS_FIRE_RATE;
 	}
 	/**
 	 * Gets the initial position for the projectile based on the boss plane's position.
@@ -283,7 +285,7 @@ public class Boss extends FighterPlane {
 	 */
 	private boolean shieldShouldBeActivated() {
 		if(!isShielded) {
-			 return ThreadLocalRandom.current().nextDouble() < BOSS_SHIELD_PROBABILITY;
+			 return getRandomDouble() < BOSS_SHIELD_PROBABILITY;
 		}
 		return false;
 	}
@@ -298,14 +300,14 @@ public class Boss extends FighterPlane {
 	/**
 	 * Activates the shield for the boss plane.
 	 */
-	private void activateShield() {
+    protected void activateShield() {
 		isShielded = true;
 		shieldImage.showShield();
 	}
 	/**
 	 * Deactivates the shield for the boss plane.
 	 */
-	private void deactivateShield() {
+    protected void deactivateShield() {
 		isShielded = false;
 		framesWithShieldActivated = 0;
 		shieldImage.hideShield();
@@ -319,4 +321,21 @@ public class Boss extends FighterPlane {
 	public ShieldImage getShieldImage() {
 		return shieldImage;
 	}
+
+	/**
+	 * function to return random number
+	 * @return random number
+	 */
+	protected double getRandomDouble() {
+		return ThreadLocalRandom.current().nextDouble();
+	}
+
+	/**
+	 * a getter function to return {@link ShieldImage} boolean variable
+	 * @return the {@link ShieldImage} variable that return {@code true} if shielded state is active , else it is {@code false}
+	 */
+	public boolean isShielded() {
+		return this.isShielded;
+	}
+
 }

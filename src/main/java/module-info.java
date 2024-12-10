@@ -23,22 +23,20 @@
  * The module is the core of the game application, which includes the main menu, gameplay logic, and more.
  */
 module com.example.demo {
-    requires javafx.controls;  // For JavaFX GUI components
-    requires javafx.fxml;     // For JavaFX FXML functionality
-    requires java.logging;    // For logging functionality
-    requires java.desktop;    // For desktop-related functionality
+    requires javafx.controls;
+    requires javafx.fxml;
+    requires java.logging;
+    requires java.desktop;
 
-    // Exported packages
-    exports com.example.demo;             // Core package of the game
-    exports com.example.demo.controller;   // Package for controllers (handling user input and transitions)
-    exports com.example.demo.actor;        // Package for active game entities (player, enemies, etc.)
-    exports com.example.demo.object;       // Package for game objects like projectiles and planes
-    exports com.example.demo.projectile;   // Package for projectiles (user and enemy fire)
-    exports com.example.demo.display;      // Package for the UI and game visuals (images, overlays)
-    exports com.example.demo.levelparent;  // Package for the base game levels (game environment and logic)
-    exports com.example.demo.levelview;    // Package for specific level views and UI layout
+    exports com.example.demo;
+    exports com.example.demo.controller;
+    exports com.example.demo.actor;
+    exports com.example.demo.object;
+    exports com.example.demo.projectile;
+    exports com.example.demo.display;
+    exports com.example.demo.levelparent;
+    exports com.example.demo.levelview;
 
-    // Opening packages for FXML introspection
     opens com.example.demo to javafx.fxml;
     opens com.example.demo.actor to javafx.fxml;
     opens com.example.demo.object to javafx.fxml;

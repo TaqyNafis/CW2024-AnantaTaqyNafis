@@ -21,7 +21,7 @@ public class EnemyPlane extends FighterPlane {
 	/**
 	 * the distance of enemy plane move horizontally.
 	 */
-	private static final int HORIZONTAL_VELOCITY = -6;
+	protected static final int HORIZONTAL_VELOCITY = -6;
 	/**
 	 * The X-axis offset for the enemy plane's projectile position.
 	 * This value determines how far horizontally (left or right) the projectile
@@ -71,7 +71,7 @@ public class EnemyPlane extends FighterPlane {
 	 */
 	@Override
 	public ActiveActorDestructible fireProjectile() {
-		if (ThreadLocalRandom.current().nextDouble() < FIRE_RATE) {
+		if (getRandomDouble() < FIRE_RATE) {
 			double projectileXPosition = getProjectileXPosition(PROJECTILE_X_POSITION_OFFSET);
 			double projectileYPosition = getProjectileYPosition(PROJECTILE_Y_POSITION_OFFSET);
 			return new EnemyProjectile(projectileXPosition, projectileYPosition);
@@ -86,5 +86,15 @@ public class EnemyPlane extends FighterPlane {
 	public void updateActor() {
 		updatePosition();
 	}
+
+	/**
+	 * function to return random number
+	 * @return random number
+	 */
+	protected double getRandomDouble() {
+		return ThreadLocalRandom.current().nextDouble();
+	}
+
+
 
 }

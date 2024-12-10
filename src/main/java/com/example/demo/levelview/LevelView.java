@@ -43,7 +43,7 @@
 		/**
 		 * Y-coordinate for positioning the win image.
 		 */
-		private static final int WIN_GAME_IMAGE_Y_POSITION = 95;
+		private static final int WIN_GAME_IMAGE_Y_POSITION = 45;
 		/**
 		 * X-coordinate for positioning the paused image.
 		 */
